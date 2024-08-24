@@ -57,6 +57,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2744364983344597252}
     m_Modifications:
+    - target: {fileID: 1773551798081812329, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3312818711161977966, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -121,9 +125,17 @@ PrefabInstance:
       propertyPath: _board
       value: 
       objectReference: {fileID: 4272440102726744383}
+    - target: {fileID: 7756370723185583353, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9033604617820531860, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
       propertyPath: m_Name
       value: Bolt 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033604617820531860, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -220,6 +232,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3277114778919157172, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4010155233859522188, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
       propertyPath: _holeInCube
       value: 0
@@ -227,6 +243,18 @@ PrefabInstance:
     - target: {fileID: 4010155233859522188, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
       propertyPath: _holeInBoard
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495713477467279918, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672172811647629588, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6962078159215698479, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -318,6 +346,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3277114778919157172, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4010155233859522188, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
       propertyPath: _holeInCube
       value: 0
@@ -325,6 +357,18 @@ PrefabInstance:
     - target: {fileID: 4010155233859522188, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
       propertyPath: _holeInBoard
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495713477467279918, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672172811647629588, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6962078159215698479, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -347,6 +391,14 @@ PrefabInstance:
     - target: {fileID: 3392597838800634880, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
       propertyPath: m_Name
       value: Board
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392597838800634880, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484894256073482324, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
+      propertyPath: m_Constraints
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 4152603991948535778, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
       propertyPath: m_Enabled
@@ -470,6 +522,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2744364983344597252}
     m_Modifications:
+    - target: {fileID: 1773551798081812329, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3312818711161977966, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -534,9 +590,17 @@ PrefabInstance:
       propertyPath: _board
       value: 
       objectReference: {fileID: 4272440102726744383}
+    - target: {fileID: 7756370723185583353, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9033604617820531860, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
       propertyPath: m_Name
       value: Bolt 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033604617820531860, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -633,6 +697,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3277114778919157172, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4010155233859522188, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
       propertyPath: _holeInCube
       value: 0
@@ -640,6 +708,18 @@ PrefabInstance:
     - target: {fileID: 4010155233859522188, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
       propertyPath: _holeInBoard
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495713477467279918, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672172811647629588, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6962078159215698479, guid: eedaa6220c7cf4a43867ea90c3f3129a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -659,6 +739,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2744364983344597252}
     m_Modifications:
+    - target: {fileID: 1773551798081812329, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3312818711161977966, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -723,9 +807,17 @@ PrefabInstance:
       propertyPath: _board
       value: 
       objectReference: {fileID: 4272440102726744383}
+    - target: {fileID: 7756370723185583353, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9033604617820531860, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
       propertyPath: m_Name
       value: Bolt 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033604617820531860, guid: 71e2b946c84e6ef46907158d25a22321, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -50,18 +48,6 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void CanUseAnyBolt()
-    {
-        canUseBolt = true;
-    }
-
-    public void BoltsCheking(GameObject BoltToRemove, HingeJoint HingeJoint)
-    {
-        _boltToRemove = BoltToRemove;
-        _boltHingeJoint = HingeJoint;
-        _isMoving = true;
-    }
-
     public void AddBolt(GameObject NewBolt)
     {
         for (int i = 0; i < _bolts.Length; i++)
@@ -82,51 +68,6 @@ public class Board : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-
-    private void FindHole(GameObject Center)
-    {
-        Vector3 center = Center.transform.position;
-
-        GameObject[] allObjects = GameObject.FindObjectsOfType<Hole>().Select(hole => hole.gameObject).ToArray();
-
-        foreach (GameObject obj in allObjects)
-        {
-            float distance = Vector3.Distance(center, obj.transform.position);
-
-            if (distance < _radius)
-            {
-                _lastHole = obj;
-            }
-        }
-    }
-
-    private void FindEmptyObjectsInRadius()
-    {
-        Vector3 center = _boltToRemove.transform.position;
-
-        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Bolt Move Point");
-
-        Transform closestTransform = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (GameObject obj in allObjects)
-        {
-            float distance = Vector3.Distance(center, obj.transform.position);
-            if (distance < _radius)
-            {
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestTransform = obj.transform;
-                }
-            }
-        }
-
-        if (closestTransform != null)
-        {
-            _boltMovePoint = closestTransform;
         }
     }
 
@@ -160,23 +101,7 @@ public class Board : MonoBehaviour
 
         if (_boltsCount == 1)
         {
-            FindHole(_lastBolt);
-
-            Vector3 LocalPosition = _lastHole.transform.localPosition;
-
-            Debug.Log(_lastHole.name);
-
-            if (LocalPosition.x < 0.15f)
-            {
-                Vector3 center = _boadrBoxCollider.center;
-                center.x += 0.01f;
-                _boadrBoxCollider.center = center;
-            }
-
-            _boadrBoxCollider.enabled = true;
-            _boardRigidbody.useGravity = true;
-            _lastBolt.GetComponent<HingeJoint>().connectedBody = this._boardRigidbody;
-            _lastBolt.GetComponent<HingeJoint>().connectedAnchor = new Vector3(LocalPosition.x, 0, 1.7f);
+            AddPhysic();
         }
         else if (_boltsCount > 1)
         {
@@ -184,6 +109,60 @@ public class Board : MonoBehaviour
         }
 
         _addBolt = false;
+    }
+
+    private void AddPhysic()
+    {
+        _boardRigidbody.constraints = RigidbodyConstraints.None;
+        _boardRigidbody.freezeRotation = false;
+
+        Vector3 center = _boadrBoxCollider.center;
+        center.x += 0.01f;
+        _boadrBoxCollider.center = center;
+
+        _boadrBoxCollider.enabled = true;
+        _boardRigidbody.useGravity = true;
+        _lastBolt.GetComponent<HingeJoint>().connectedBody = this._boardRigidbody;
+    }
+
+    private void FindEmptyObjectsInRadius()
+    {
+        Vector3 center = _boltToRemove.transform.position;
+
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Bolt Move Point");
+
+        Transform closestTransform = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (GameObject obj in allObjects)
+        {
+            float distance = Vector3.Distance(center, obj.transform.position);
+            if (distance < _radius)
+            {
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestTransform = obj.transform;
+                }
+            }
+        }
+
+        if (closestTransform != null)
+        {
+            _boltMovePoint = closestTransform;
+        }
+    }
+
+    public void BoltsCheking(GameObject BoltToRemove, HingeJoint HingeJoint)
+    {
+        _boltToRemove = BoltToRemove;
+        _boltHingeJoint = HingeJoint;
+        _isMoving = true;
+    }
+
+    public void CanUseAnyBolt()
+    {
+        canUseBolt = true;
     }
 
     public GameObject ReturneBolt()

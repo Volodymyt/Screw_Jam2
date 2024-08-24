@@ -357,6 +357,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.3f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/Board.cs"
 "Assets/Scripts/BoardController.cs"
+"Assets/Scripts/BoltController.cs"
 "Assets/Scripts/BoltMovement.cs"
 "Assets/Scripts/BoltTouch.cs"
 "Assets/Scripts/CubeRotation.cs"
