@@ -35,9 +35,9 @@ public class Board : MonoBehaviour
     {
         if (canUseBolt == true && _freeHoles.CheckHoles() != null)
         {
-            _boltHingeJoint.GetComponent<HingeJoint>().connectedBody = null;
+            _boltHingeJoint.connectedBody = null;
 
-            StartCoroutine(CheckBolts());
+            StartCoroutine(CheckBolts(_boltToRemove));
 
             canUseBolt = false;
         }
@@ -71,11 +71,16 @@ public class Board : MonoBehaviour
         }
     }
 
-    private IEnumerator CheckBolts()
+    public void CheckBoltToRemove(GameObject BoltToRemove)
+    {
+        StartCoroutine(CheckBolts(BoltToRemove));
+    }
+
+    private IEnumerator CheckBolts(GameObject BoltToRemove)
     {
         for (int i = 0; i < _bolts.Length; i++)
         {
-            if (_bolts[i] == _boltToRemove)
+            if (_bolts[i] == BoltToRemove)
             {
                 if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
                 {
@@ -83,6 +88,7 @@ public class Board : MonoBehaviour
                 }
             }
         }
+
         _boltToRemove = null;
 
         yield return new WaitForSeconds(_timeForMove);
@@ -122,6 +128,8 @@ public class Board : MonoBehaviour
 
         _boadrBoxCollider.enabled = true;
         _boardRigidbody.useGravity = true;
+
+        _lastBolt.GetComponent<BoltController>().AddAnchors(_boardRigidbody);
         _lastBolt.GetComponent<HingeJoint>().connectedBody = this._boardRigidbody;
     }
 

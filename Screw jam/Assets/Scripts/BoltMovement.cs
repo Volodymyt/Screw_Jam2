@@ -4,8 +4,9 @@ using UnityEngine;
 public class BoltMovement : MonoBehaviour
 {
     [SerializeField] private float _speed, _timeForMove, _screwingSpeed;
-
     [SerializeField] private Board _board;
+    [SerializeField] private BoltController _controller;
+
     private HolesChecking _activeHole;
     private Transform _startOffset, _centerOfRotation;
     private GameObject _meinCamera, _cube;
@@ -26,11 +27,13 @@ public class BoltMovement : MonoBehaviour
 
     private void Update()
     {
+
         if (_canMove && _activeHole.CheckHoles() != null)
         {
             GameObject Hole = _activeHole.CheckHoles();
 
             Movement(Hole);
+            _controller.RemoveBoltFromList();
 
             if (_canScrew)
             {

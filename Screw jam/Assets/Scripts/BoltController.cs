@@ -16,7 +16,7 @@ public class BoltController : MonoBehaviour
         }
     }
 
-    public Board[] AddBoards()
+    private Board[] AddBoards()
     {
         RaycastHit[] Boards = Physics.RaycastAll(_startOfBolt.position, _endOfBolt.position - _startOfBolt.position, Vector3.Distance(_startOfBolt.position, _endOfBolt.position));
 
@@ -35,5 +35,21 @@ public class BoltController : MonoBehaviour
         _boards = _boardsList.ToArray();
 
         return _boards;
+    }
+
+    public void RemoveBoltFromList()
+    {
+        for (int i = 0; i < _boards.Length; i++)
+        {
+            _boards[i].CheckBoltToRemove(this.gameObject);
+        }
+    }
+
+    public void AddAnchors(Rigidbody BoardRigidbody)
+    {
+        HingeJoint NewHingenJoint = gameObject.AddComponent<HingeJoint>();
+
+        NewHingenJoint.connectedBody = BoardRigidbody.GetComponent<Rigidbody>();
+        NewHingenJoint.axis = new Vector3(0, 90, 0);
     }
 }
