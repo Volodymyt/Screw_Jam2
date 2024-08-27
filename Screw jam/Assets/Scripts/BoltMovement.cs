@@ -6,17 +6,16 @@ public class BoltMovement : MonoBehaviour
     [SerializeField] private float _speed, _timeForMove, _screwingSpeed;
     [SerializeField] private Board _board;
     [SerializeField] private BoltController _controller;
+    [SerializeField] private Transform _transform;
 
     private HolesChecking _activeHole;
-    private Transform _startOffset, _centerOfRotation;
+    private Transform _centerOfRotation;
     private GameObject _meinCamera, _cube;
     private bool _canMove = false, _canScrew = false;
     private float lerpTime = 0f;
 
     private void Start()
     {
-        _startOffset = this.transform;
-
         _centerOfRotation = FindObjectOfType<CubeRotation>().transform;
 
         _meinCamera = FindObjectOfType<Camera>().gameObject;
@@ -27,34 +26,34 @@ public class BoltMovement : MonoBehaviour
 
     private void Update()
     {
-
         if (_canMove && _activeHole.CheckHoles() != null)
         {
             GameObject Hole = _activeHole.CheckHoles();
 
             Movement(Hole);
-            _controller.RemoveBoltFromList();
 
-            if (_canScrew)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, Hole.transform.position, _screwingSpeed * Time.deltaTime);
-            }
+            _controller.RemoveBoltFromList();
 
             if (Hole.GetComponent<Hole>().SetBoltInPanel() == true)
             {
-                this.gameObject.transform.SetParent(_meinCamera.transform);
+                _transform.transform.SetParent(_meinCamera.transform);
             }
             else if (Hole.GetComponent<Hole>().SetBoltInCube() == true)
             {
-                this.gameObject.transform.SetParent(_cube.transform);
+                _transform.transform.SetParent(_cube.transform);
             }
             else if (Hole.GetComponent<Hole>().SetBoltInBoard() == true)
             {
                 _board = Hole.transform.parent.gameObject.GetComponent<Board>();
 
-                this.gameObject.transform.SetParent(_board.transform.parent.gameObject.transform);
+                _transform.transform.SetParent(_board.transform.parent.gameObject.transform);
 
                 _board.AddBolt(this.gameObject);
+            }
+
+            if (_canScrew)
+            {
+                _transform.position = Vector3.MoveTowards(_transform.position, Hole.transform.position, _screwingSpeed * Time.deltaTime);
             }
 
             StartCoroutine(SetBoltActiveFalse());
@@ -75,21 +74,21 @@ public class BoltMovement : MonoBehaviour
 
         lerpTime += _speed * Time.deltaTime;
 
-        Vector3 StartOffset = _startOffset.position - _centerOfRotation.position;
+        Vector3 StartOffset = _transform.position - _centerOfRotation.position;
         Vector3 EndOffsetVector = EndOffset.position - _centerOfRotation.position;
 
         Vector3 currentPosition = Vector3.Slerp(StartOffset, EndOffsetVector, lerpTime);
 
-        transform.position = _centerOfRotation.position + currentPosition;
+        _transform.position = _centerOfRotation.position + currentPosition;
 
-        if (lerpTime >= 1.0f)
+        if (lerpTime >= 1f)
         {
-            lerpTime = 1.0f;
+            lerpTime = 1f;
         }
 
-        transform.rotation = Hole.transform.rotation;
+        _transform.rotation = Hole.transform.rotation;
 
-        if (Vector3.Distance(transform.position, EndOffset.position) < 0.1f)
+        if (Vector3.Distance(_transform.position, EndOffsetVector) < 0.2f)
         {
             _canScrew = true;
         }

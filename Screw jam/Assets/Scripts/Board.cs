@@ -9,14 +9,13 @@ public class Board : MonoBehaviour
     [SerializeField] private float _timeForMove, _moveSpeed;
     [SerializeField] private float _radius;
     [SerializeField] private bool _isMoving = true, _addBolt = false;
-    [SerializeField] private GameObject _lastHole;
 
-    private int value = 2;
-    private Transform _boltMovePoint;
+    private HingeJoint[] _hingeJoints;
+    private Transform _boltMovePoint, _boltTransform;
     private HolesChecking _freeHoles;
-    private HingeJoint _boltHingeJoint;
     private GameObject _lastBolt, _boltToRemove;
     private int _boltsCount, _boltsCountOnTheStart;
+    private int value = 2;
     private bool canUseBolt = false;
 
     private void Start()
@@ -35,7 +34,15 @@ public class Board : MonoBehaviour
     {
         if (canUseBolt == true && _freeHoles.CheckHoles() != null)
         {
-            _boltHingeJoint.connectedBody = null;
+            if (_lastBolt != null)
+            {
+                _hingeJoints = _lastBolt.gameObject.GetComponents<HingeJoint>();
+
+                foreach (HingeJoint HingeJoint in _hingeJoints)
+                {
+                    Destroy(HingeJoint);
+                }
+            }
 
             StartCoroutine(CheckBolts(_boltToRemove));
 
@@ -130,14 +137,13 @@ public class Board : MonoBehaviour
         _boardRigidbody.useGravity = true;
 
         _lastBolt.GetComponent<BoltController>().AddAnchors(_boardRigidbody);
-        _lastBolt.GetComponent<HingeJoint>().connectedBody = this._boardRigidbody;
     }
 
     private void FindEmptyObjectsInRadius()
     {
-        Vector3 center = _boltToRemove.transform.position;
+        Vector3 center = _boltToRemove.GetComponent<BoltController>().GetTransform().position;
 
-        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Bolt Move Point");
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Hole");
 
         Transform closestTransform = null;
         float closestDistance = Mathf.Infinity;
@@ -145,12 +151,13 @@ public class Board : MonoBehaviour
         foreach (GameObject obj in allObjects)
         {
             float distance = Vector3.Distance(center, obj.transform.position);
+
             if (distance < _radius)
             {
                 if (distance < closestDistance)
                 {
-                    closestDistance = distance;
-                    closestTransform = obj.transform;
+                    closestDistance = Vector3.Distance(center, obj.GetComponent<Hole>().SetOffset().transform.position);
+                    closestTransform = obj.GetComponent<Hole>().SetOffset().transform;
                 }
             }
         }
@@ -161,10 +168,10 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void BoltsCheking(GameObject BoltToRemove, HingeJoint HingeJoint)
+    public void BoltsCheking(GameObject BoltToRemove, Transform BoltTransform)
     {
+        _boltTransform = BoltTransform;
         _boltToRemove = BoltToRemove;
-        _boltHingeJoint = HingeJoint;
         _isMoving = true;
     }
 
@@ -180,9 +187,9 @@ public class Board : MonoBehaviour
 
     private IEnumerator BoltMoveToPoint()
     {
-        _boltToRemove.transform.position = Vector3.MoveTowards(_boltToRemove.transform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
+        _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
 
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.3f);
 
         _isMoving = false;
     }

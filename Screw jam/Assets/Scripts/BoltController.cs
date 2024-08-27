@@ -52,4 +52,9 @@ public class BoltController : MonoBehaviour
         NewHingenJoint.connectedBody = BoardRigidbody.GetComponent<Rigidbody>();
         NewHingenJoint.axis = new Vector3(0, 90, 0);
     }
+
+    public Transform GetTransform()
+    {
+        return _startOfBolt;
+    }
 }
