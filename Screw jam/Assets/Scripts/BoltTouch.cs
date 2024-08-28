@@ -15,4 +15,14 @@ public class BoltTouch : MonoBehaviour
             _board.BoltsCheking(gameObject, _transform);
         }
     }
+
+    public void RemoveBoard()
+    {
+        _board = null;
+    }
+
+    public void SetBoard(Board NewBoard)
+    {
+        _board = NewBoard;
+    }
 }

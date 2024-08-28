@@ -10,13 +10,15 @@ public class BoltController : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < AddBoards().Length; i++)
+        AddBoards();
+
+        for (int i = 0; i < _boards.Length; i++)
         {
-            AddBoards()[i].AddBolt(this.gameObject);
+            _boards[i].AddBolt(this.gameObject);
         }
     }
 
-    private Board[] AddBoards()
+    public void AddBoards()
     {
         RaycastHit[] Boards = Physics.RaycastAll(_startOfBolt.position, _endOfBolt.position - _startOfBolt.position, Vector3.Distance(_startOfBolt.position, _endOfBolt.position));
 
@@ -33,8 +35,6 @@ public class BoltController : MonoBehaviour
         }
 
         _boards = _boardsList.ToArray();
-
-        return _boards;
     }
 
     public void RemoveBoltFromList()
@@ -56,5 +56,15 @@ public class BoltController : MonoBehaviour
     public Transform GetTransform()
     {
         return _startOfBolt;
+    }
+
+    public void AddNewBolt()
+    {
+        AddBoards();
+
+        for (int i = 0; i < _boards.Length; i++)
+        {
+            _boards[i].AddBolt(this.gameObject);
+        }
     }
 }

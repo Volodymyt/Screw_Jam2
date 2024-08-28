@@ -214,7 +214,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -154.4, y: -26.399994}
+      snapOffset: {x: -160, y: -26.399994}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       id: Tool Settings
@@ -227,9 +227,9 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -141, y: 149}
+      snapOffset: {x: -141, y: -200.59998}
       snapOffsetDelta: {x: 0, y: 0}
-      snapCorner: 1
+      snapCorner: 3
       id: unity-grid-and-snap-toolbar
       index: 1
       layout: 1
@@ -482,6 +482,19 @@ MonoBehaviour:
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
+    - dockPosition: 1
+      containerId: overlay-container--right
+      floating: 0
+      collapsed: 0
+      displayed: 1
+      snapOffset: {x: 48, y: 48}
+      snapOffsetDelta: {x: 0, y: 0}
+      snapCorner: 0
+      id: UnityEditor.SceneViewCameraOverlay
+      index: 8
+      layout: 4
+      size: {x: 0, y: 0}
+      sizeOverriden: 0
     m_OverlaysVisible: 1
   m_WindowGUID: b7cd37776aff3b64d9204885959bbc40
   m_Gizmos: 1
@@ -493,9 +506,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.302815, y: 0.5978587, z: -2.0487251}
+    m_Target: {x: 0, y: 0.58305013, z: -1.7369322}
     speed: 2
-    m_Value: {x: -1.302815, y: 0.5978587, z: -2.0487251}
+    m_Value: {x: 0, y: 0.58305013, z: -1.7369322}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -541,13 +554,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.009944278, y: 0.74855286, z: -0.011228917, w: 0.6629101}
+    m_Target: {x: 0.21856196, y: 0.6562311, z: -0.20731975, w: 0.69182587}
     speed: 2
-    m_Value: {x: 0.009944247, y: 0.74855053, z: -0.011228883, w: 0.6629081}
+    m_Value: {x: 0.21856053, y: 0.6562268, z: -0.2073184, w: 0.69182134}
   m_Size:
-    m_Target: 1.3240774
+    m_Target: 1.3905485
     speed: 2
-    m_Value: 1.3240774
+    m_Value: 1.3905485
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -617,8 +630,8 @@ MonoBehaviour:
     y: 0
     width: 252.80005
     height: 722.8
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 8}
   m_Panes:
   - {fileID: 8}
@@ -661,23 +674,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3ec7fdff
-      m_LastClickedID: 0
-      m_ExpandedIDs: b022feff502dfeff1aaefeff9cb0feffced8feff16d9feffe8c8ffff56d8ffffe4f8ffff42faffff28fbffff
+      m_SelectedIDs: 38f9ffff
+      m_LastClickedID: -1736
+      m_ExpandedIDs: aaf6ffffe0f7ffffe4f7ffff3cf9ffff46f9ffffe6f9ffff1efaffff82faffff86faffff28fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Board
+        m_OriginalName: Board
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -1736
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -773,9 +786,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 825b0000
-    m_LastClickedID: 23426
-    m_ExpandedIDs: 00000000765b0000
+    m_SelectedIDs: 345c0000
+    m_LastClickedID: 23604
+    m_ExpandedIDs: 00000000285c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -803,7 +816,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000765b0000
+    m_ExpandedIDs: 00000000285c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -828,8 +841,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 3ec7fdff
-    m_LastClickedInstanceID: -145602
+    m_SelectedInstanceIDs: 38f9ffff
+    m_LastClickedInstanceID: -1736
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -926,7 +939,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 844.0001
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

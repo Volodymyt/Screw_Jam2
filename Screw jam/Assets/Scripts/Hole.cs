@@ -4,9 +4,57 @@ using UnityEngine;
 public class Hole : MonoBehaviour
 {
     [SerializeField] private bool _holeInCube = false, _holeInPanel = false, _holeInBoard = false;
-    [SerializeField] private Transform _endOffsetForBolt;
+    [SerializeField] private Transform _endOffsetForBolt, _startOfHole, _endOfHole;
 
-    private bool _useThisHole = false;
+    private bool _useThisHole = false, _canScrewing = false;
+
+    public bool CanScrewing()
+    {
+        int HolesInBoard = 0;
+        int HolesInCube = 0;
+        int Boards = 0;
+
+        if (SetBoltInBoard() == true)
+        {
+            RaycastHit[] Objects = Physics.RaycastAll(_startOfHole.position, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
+
+            for (int i = 0; i < Objects.Length; i++)
+            {
+                if (Objects[i].collider.GetComponent<Hole>() != null)
+                {
+                    if (Objects[i].collider.GetComponent<Hole>().SetBoltInBoard())
+                    {
+                        HolesInBoard++;
+                    }
+                    else if (Objects[i].collider.GetComponent<Hole>().SetBoltInCube())
+                    {
+                        HolesInCube++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objects.Length; i++)
+            {
+                if (Objects[i].collider.GetComponent<Board>() != null)
+                {
+                    Boards++;
+                }
+            }
+
+            if (HolesInBoard == Boards && HolesInCube > 0)
+            {
+                _canScrewing = true;
+            }
+
+            Debug.Log("Holes In Board: " + HolesInBoard + ", Holes In Cube: " + HolesInCube + ", Boards: " + Boards);
+        }
+        else
+        {
+            _canScrewing = true;
+        }
+        
+        return _canScrewing;
+    }
 
     public void TouchHole()
     {
@@ -23,12 +71,12 @@ public class Hole : MonoBehaviour
     {
         return _holeInCube;
     }
-    
+
     public bool SetBoltInPanel()
     {
         return _holeInPanel;
     }
-    
+
     public bool SetBoltInBoard()
     {
         return _holeInBoard;
@@ -44,5 +92,6 @@ public class Hole : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         _useThisHole = false;
+        _canScrewing = false;
     }
 }

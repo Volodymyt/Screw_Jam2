@@ -9,6 +9,7 @@ public class Board : MonoBehaviour
     [SerializeField] private float _timeForMove, _moveSpeed;
     [SerializeField] private float _radius;
     [SerializeField] private bool _isMoving = true, _addBolt = false;
+    [SerializeField] private Board _board;
 
     private HingeJoint[] _hingeJoints;
     private Transform _boltMovePoint, _boltTransform;
@@ -85,43 +86,50 @@ public class Board : MonoBehaviour
 
     private IEnumerator CheckBolts(GameObject BoltToRemove)
     {
-        for (int i = 0; i < _bolts.Length; i++)
+        if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
         {
-            if (_bolts[i] == BoltToRemove)
+            for (int i = 0; i < _bolts.Length; i++)
             {
-                if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
+                if (_bolts[i] == BoltToRemove)
                 {
-                    _bolts[i] = null;
+                    if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
+                    {
+                        _bolts[i] = null;
+                    }
                 }
             }
-        }
 
-        _boltToRemove = null;
+            _boltToRemove = null;
 
-        yield return new WaitForSeconds(_timeForMove);
+            yield return new WaitForSeconds(_timeForMove);
 
-        foreach (GameObject Bolt in _bolts)
-        {
-            if (Bolt == null)
+            foreach (GameObject Bolt in _bolts)
             {
-                _boltsCount--;
+                if (Bolt == null)
+                {
+                    _boltsCount--;
+                }
+                else
+                {
+                    _lastBolt = Bolt;
+                }
             }
-            else
+
+            if (_boltsCount == 1)
             {
-                _lastBolt = Bolt;
+                AddPhysic();
             }
-        }
+            else if (_boltsCount > 1)
+            {
+                _boltsCount = _boltsCountOnTheStart;
+            }
+            else if (_boltsCount < 1)
+            {
+                _lastBolt.GetComponent<BoltTouch>().SetBoard(_board);
+            }
 
-        if (_boltsCount == 1)
-        {
-            AddPhysic();
+            _addBolt = false;
         }
-        else if (_boltsCount > 1)
-        {
-            _boltsCount = _boltsCountOnTheStart;
-        }
-
-        _addBolt = false;
     }
 
     private void AddPhysic()
@@ -189,7 +197,7 @@ public class Board : MonoBehaviour
     {
         _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
 
         _isMoving = false;
     }
