@@ -7,6 +7,7 @@ public class Hole : MonoBehaviour
     [SerializeField] private Transform _endOffsetForBolt, _startOfHole, _endOfHole;
 
     private bool _useThisHole = false, _canScrewing = false;
+    private float _radius = 0.1f;
 
     public bool CanScrewing()
     {
@@ -16,7 +17,7 @@ public class Hole : MonoBehaviour
 
         if (SetBoltInBoard() == true)
         {
-            RaycastHit[] Objects = Physics.RaycastAll(_startOfHole.position, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
+            RaycastHit[] Objects = Physics.CapsuleCastAll(_startOfHole.position, _endOfHole.position, _radius, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
 
             for (int i = 0; i < Objects.Length; i++)
             {

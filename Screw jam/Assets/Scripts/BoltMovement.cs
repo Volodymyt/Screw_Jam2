@@ -88,9 +88,9 @@ public class BoltMovement : MonoBehaviour
 
         _transform.position = _centerOfRotation.position + currentPosition;
 
-        if (lerpTime >= 1f)
+        if (lerpTime >= 0.5f)
         {
-            lerpTime = 1f;
+            lerpTime = 0.5f;
         }
 
         _transform.rotation = Hole.transform.rotation;

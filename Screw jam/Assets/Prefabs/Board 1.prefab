@@ -34,7 +34,7 @@ Transform:
   - {fileID: 3124245706210618452}
   - {fileID: 6551923394660822589}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &44556367351891615
 MonoBehaviour:
@@ -492,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 3392597838800634880, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
       propertyPath: m_Name
       value: Board
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392597838800634880, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3392597838800634880, guid: bda61b31d188e3a4abf2fd8e8ffb6077, type: 3}
       propertyPath: m_StaticEditorFlags

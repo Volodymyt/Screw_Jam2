@@ -134,6 +134,7 @@ public class Board : MonoBehaviour
 
     private void AddPhysic()
     {
+        _lastBolt.GetComponent<BoltController>().AddAnchors(_boardRigidbody);
         _boardRigidbody.constraints = RigidbodyConstraints.None;
         _boardRigidbody.freezeRotation = false;
 
@@ -144,7 +145,9 @@ public class Board : MonoBehaviour
         _boadrBoxCollider.enabled = true;
         _boardRigidbody.useGravity = true;
 
-        _lastBolt.GetComponent<BoltController>().AddAnchors(_boardRigidbody);
+        _lastBolt.GetComponent<Rigidbody>().isKinematic = true;
+
+      //  Physics.IgnoreCollision(collider, _lastBolt.GetComponent<Collider>());
     }
 
     private void FindEmptyObjectsInRadius()
