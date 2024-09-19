@@ -45,6 +45,39 @@ public class BoltController : MonoBehaviour
         }
     }
 
+    public void StopRotation()
+    {
+        for (int i = 0; i < _boards.Length; i++)
+        {
+            _boards[i].GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    public void StartRotation()
+    {
+        Vector3 anchorPoition;
+        float hingesCount = 0;
+
+        for (int i = 0; i < _boards.Length; i++)
+        {
+            _boards[i].GetComponent<Rigidbody>().isKinematic = false;
+        }
+
+        HingeJoint[] hinges = gameObject.GetComponents<HingeJoint>();
+
+        foreach (HingeJoint hinge in hinges)
+        {
+            anchorPoition = hinge.connectedAnchor;
+
+            anchorPoition.z = -1.3f + hingesCount;
+
+            hingesCount += -1.6f;
+
+            hinge.autoConfigureConnectedAnchor = false;
+            hinge.connectedAnchor = anchorPoition;
+        }
+    }
+
     public void AddAnchors(Rigidbody BoardRigidbody)
     {
         HingeJoint NewHingenJoint = gameObject.AddComponent<HingeJoint>();

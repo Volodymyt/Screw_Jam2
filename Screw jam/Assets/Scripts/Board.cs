@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
     [SerializeField] private bool _isMoving = true, _addBolt = false;
     [SerializeField] private Board _board;
 
+    private UIOptions _UIOptions;
     private HingeJoint[] _hingeJoints;
     private Transform _boltMovePoint, _boltTransform;
     private HolesChecking _freeHoles;
@@ -19,8 +20,10 @@ public class Board : MonoBehaviour
     private int value = 2;
     private bool canUseBolt = false;
 
+
     private void Start()
     {
+        _UIOptions = FindObjectOfType<UIOptions>();
         _freeHoles = FindObjectOfType<HolesChecking>();
 
         for (int i = 0; i < _bolts.Length; i++)
@@ -42,6 +45,7 @@ public class Board : MonoBehaviour
                 foreach (HingeJoint HingeJoint in _hingeJoints)
                 {
                     Destroy(HingeJoint);
+                    _UIOptions.RecoundBourds();
                 }
             }
 
@@ -146,8 +150,6 @@ public class Board : MonoBehaviour
         _boardRigidbody.useGravity = true;
 
         _lastBolt.GetComponent<Rigidbody>().isKinematic = true;
-
-      //  Physics.IgnoreCollision(collider, _lastBolt.GetComponent<Collider>());
     }
 
     private void FindEmptyObjectsInRadius()
@@ -181,8 +183,8 @@ public class Board : MonoBehaviour
 
     public void BoltsCheking(GameObject BoltToRemove, Transform BoltTransform)
     {
-        _boltTransform = BoltTransform;
         _boltToRemove = BoltToRemove;
+        _boltTransform = BoltTransform;
         _isMoving = true;
     }
 
@@ -198,9 +200,31 @@ public class Board : MonoBehaviour
 
     private IEnumerator BoltMoveToPoint()
     {
+        int activeBolts = 0;
+
+        _boltToRemove.GetComponent<BoltMovement>().StayBoltCollider();
+
         _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
 
+        foreach (GameObject bolt in _bolts)
+        {
+            if (bolt != null)
+            {
+                activeBolts++;
+            }
+        }
+
+        if (activeBolts == 1)
+        {
+            _lastBolt.GetComponent<BoltController>().StopRotation();
+        }
+
         yield return new WaitForSeconds(0.4f);
+
+        if (activeBolts == 1)
+        {
+            _lastBolt.GetComponent<BoltController>().StartRotation();
+        }
 
         _isMoving = false;
     }
