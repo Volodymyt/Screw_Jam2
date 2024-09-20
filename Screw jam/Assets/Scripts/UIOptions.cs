@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class UIOptions : MonoBehaviour
@@ -9,9 +8,18 @@ public class UIOptions : MonoBehaviour
     [SerializeField] private GameObject _winPanle;
     [SerializeField] private Sprite _soundButtonOffSprite, _soundButtonOnSprite;
     [SerializeField] private Image _soundsButtonIamge;
+    [SerializeField] private GameObject _thisLevel;
+    [SerializeField] private Text _levelName;
 
     private void Start()
     {
+        if (!PlayerPrefs.HasKey("Level"))
+        {
+            PlayerPrefs.SetInt("Level", 1);
+        }
+
+        _levelName.text = "Level " + PlayerPrefs.GetInt("Level");
+
         Board[] boardComponents = FindObjectsOfType<Board>();
 
         _boards = boardComponents.Length;
@@ -29,9 +37,11 @@ public class UIOptions : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void OpenScene(int sceneNumber)
+    public void LoadLevel(GameObject level)
     {
-        SceneManager.LoadScene(sceneNumber);
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        Instantiate(level);
+        Destroy(_thisLevel);
     }
 
     public void ChangeAudio(AudioSource audioSource)

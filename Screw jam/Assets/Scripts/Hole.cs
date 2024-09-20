@@ -46,7 +46,7 @@ public class Hole : MonoBehaviour
             {
                 _canScrewing = true;
             }
-
+            
             Debug.Log("Holes In Board: " + HolesInBoard + ", Holes In Cube: " + HolesInCube + ", Boards: " + Boards);
         }
         else
@@ -90,7 +90,7 @@ public class Hole : MonoBehaviour
 
     private IEnumerator SetHoleActiveFalse()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.9f);
 
         _useThisHole = false;
         _canScrewing = false;

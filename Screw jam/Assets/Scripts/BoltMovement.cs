@@ -7,12 +7,13 @@ public class BoltMovement : MonoBehaviour
     [SerializeField] private Board _board;
     [SerializeField] private BoltController _controller;
     [SerializeField] private Transform _transform;
-    [SerializeField] private bool _canMove = false, _canScrew = false;
+    [SerializeField] private BoltGlobalScript _boltGloblScript;
+    [SerializeField] private bool _canMove = false, _canScrew = false, _can = false;
 
     private HolesChecking _activeHole;
     private CapsuleCollider _boltCollider;
     private Transform _centerOfRotation;
-    private GameObject _meinCamera, _cube;
+    private GameObject _meinCamera, _cube, _hole;
     private float updateInterval = 0.05f;
     private float timeElapsed = 0f;
     [SerializeField] private float lerpTime = 0f;
@@ -20,6 +21,7 @@ public class BoltMovement : MonoBehaviour
     private void Start()
     {
         _centerOfRotation = FindObjectOfType<CubeRotation>().transform;
+        _boltGloblScript = FindObjectOfType<BoltGlobalScript>();
 
         _meinCamera = FindObjectOfType<Camera>().gameObject;
         _cube = FindObjectOfType<CubeRotation>().gameObject;
@@ -31,48 +33,57 @@ public class BoltMovement : MonoBehaviour
     {
         if (_canMove && _activeHole.CheckHoles() != null)
         {
-            GameObject Hole = _activeHole.CheckHoles();
+            _hole = _activeHole.CheckHoles();
 
-            if (Hole.GetComponent<Hole>().CanScrewing() == true)
+            if (_hole.GetComponent<Hole>().CanScrewing() == true)
             {
-                if (_canScrew)
-                {
-                    _transform.position = Vector3.MoveTowards(_transform.position, Hole.transform.position, _screwingSpeed * Time.deltaTime);
-                }
-
-                Movement(Hole);
-
-                _controller.RemoveBoltFromList();
-
-                if (Hole.GetComponent<Hole>().SetBoltInPanel() == true)
-                {
-                    _transform.transform.SetParent(_meinCamera.transform);
-                }
-                else if (Hole.GetComponent<Hole>().SetBoltInCube() == true)
-                {
-                    _transform.transform.SetParent(_cube.transform);
-                }
-                else if (Hole.GetComponent<Hole>().SetBoltInBoard() == true)
-                {
-                    _board = Hole.transform.parent.gameObject.GetComponent<Board>();
-
-                    _transform.transform.SetParent(_board.transform.parent.gameObject.transform);
-
-                    _board.AddBolt(this.gameObject);
-                }
-
-                StartCoroutine(SetBoltActiveFalse());
+                _can = true;
             }
             else
             {
                 Debug.LogError("YOU CAN'T USE THIS HOLE!");
             }
         }
+
+        if (_can)
+        {
+            if (_canScrew)
+            {
+                _transform.position = Vector3.MoveTowards(_transform.position, _hole.transform.position, _screwingSpeed * Time.deltaTime);
+            }
+
+            Movement(_hole);
+
+            _controller.RemoveBoltFromList();
+
+            if (_hole.GetComponent<Hole>().SetBoltInPanel() == true)
+            {
+                _transform.transform.SetParent(_meinCamera.transform);
+            }
+            else if (_hole.GetComponent<Hole>().SetBoltInCube() == true)
+            {
+                _transform.transform.SetParent(_cube.transform);
+            }
+            else if (_hole.GetComponent<Hole>().SetBoltInBoard() == true)
+            {
+                _board = _hole.transform.parent.gameObject.GetComponent<Board>();
+
+                _transform.transform.SetParent(_board.transform.parent.gameObject.transform);
+
+                _board.AddBolt(this.gameObject);
+            }
+
+            StartCoroutine(SetBoltActiveFalse());
+        }
     }
 
     public void CheckingActiveBolt()
     {
         if (!_canMove)
+        {
+            _canMove = true;
+        }
+        else
         {
             _canMove = true;
         }
@@ -103,6 +114,7 @@ public class BoltMovement : MonoBehaviour
         if (Vector3.Distance(_transform.position, EndOffsetVector) < 1.2f)
         {
             _canScrew = true;
+            _canMove = false;
             lerpTime = 0f;
         }
     }
@@ -136,14 +148,24 @@ public class BoltMovement : MonoBehaviour
         _boltCollider.center = newCenter;
     }
 
+    public bool ReturneMove()
+    {
+        return _canMove;
+    }
+
     private IEnumerator SetBoltActiveFalse()
     {
         _controller.AddNewBolt();
 
         yield return new WaitForSeconds(_timeForMove);
 
+        if (_canScrew == true)
+        {
+            _boltGloblScript.SetBoltMoveActiveTrue();
+        }
+
         lerpTime = 0;
-        _canMove = false;
+        _can = false;
         _canScrew = false;
         _controller.AddBoards();
     }

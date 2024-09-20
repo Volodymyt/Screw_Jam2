@@ -358,6 +358,7 @@
 "Assets/Scripts/Board.cs"
 "Assets/Scripts/BoardController.cs"
 "Assets/Scripts/BoltController.cs"
+"Assets/Scripts/BoltGlobalScript.cs"
 "Assets/Scripts/BoltMovement.cs"
 "Assets/Scripts/BoltTouch.cs"
 "Assets/Scripts/CubeRotation.cs"

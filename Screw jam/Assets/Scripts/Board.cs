@@ -15,6 +15,7 @@ public class Board : MonoBehaviour
     private HingeJoint[] _hingeJoints;
     private Transform _boltMovePoint, _boltTransform;
     private HolesChecking _freeHoles;
+    private BoltGlobalScript _boltGlobalScript;
     private GameObject _lastBolt, _boltToRemove;
     private int _boltsCount, _boltsCountOnTheStart;
     private int value = 2;
@@ -23,6 +24,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        _boltGlobalScript = FindObjectOfType<BoltGlobalScript>();
         _UIOptions = FindObjectOfType<UIOptions>();
         _freeHoles = FindObjectOfType<HolesChecking>();
 
@@ -38,7 +40,7 @@ public class Board : MonoBehaviour
     {
         if (canUseBolt == true && _freeHoles.CheckHoles() != null)
         {
-            if (_lastBolt != null)
+            if (_lastBolt != null && _boltToRemove == null)
             {
                 _hingeJoints = _lastBolt.gameObject.GetComponents<HingeJoint>();
 
@@ -210,20 +212,27 @@ public class Board : MonoBehaviour
         {
             if (bolt != null)
             {
+                Debug.Log("ok");
                 activeBolts++;
             }
         }
 
-        if (activeBolts == 1)
+        if (_lastBolt != null && _lastBolt == _boltToRemove)
         {
-            _lastBolt.GetComponent<BoltController>().StopRotation();
+            if (activeBolts == 1)
+            {
+                _lastBolt.GetComponent<BoltController>().StopRotation();
+            }
         }
 
         yield return new WaitForSeconds(0.4f);
 
-        if (activeBolts == 1)
+        if (_lastBolt != null && _lastBolt == _boltToRemove)
         {
-            _lastBolt.GetComponent<BoltController>().StartRotation();
+            if (activeBolts == 1)
+            {
+                _lastBolt.GetComponent<BoltController>().StartRotation();
+            }
         }
 
         _isMoving = false;
