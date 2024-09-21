@@ -11,20 +11,19 @@ public class Board : MonoBehaviour
     [SerializeField] private bool _isMoving = true, _addBolt = false;
     [SerializeField] private Board _board;
 
+    private BoltGlobalScript _boltGloblScript;
     private UIOptions _UIOptions;
     private HingeJoint[] _hingeJoints;
     private Transform _boltMovePoint, _boltTransform;
     private HolesChecking _freeHoles;
-    private BoltGlobalScript _boltGlobalScript;
     private GameObject _lastBolt, _boltToRemove;
     private int _boltsCount, _boltsCountOnTheStart;
     private int value = 2;
     private bool canUseBolt = false;
 
-
     private void Start()
     {
-        _boltGlobalScript = FindObjectOfType<BoltGlobalScript>();
+        _boltGloblScript = FindObjectOfType<BoltGlobalScript>();
         _UIOptions = FindObjectOfType<UIOptions>();
         _freeHoles = FindObjectOfType<HolesChecking>();
 
@@ -212,7 +211,6 @@ public class Board : MonoBehaviour
         {
             if (bolt != null)
             {
-                Debug.Log("ok");
                 activeBolts++;
             }
         }

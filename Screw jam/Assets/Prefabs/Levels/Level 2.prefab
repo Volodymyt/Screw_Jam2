@@ -777,11 +777,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boards: 0
   _winPanle: {fileID: 3226927872859030368}
+  _losePanel: {fileID: 0}
   _soundButtonOffSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   _soundButtonOnSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   _soundsButtonIamge: {fileID: 422300218705169138}
   _thisLevel: {fileID: 0}
   _levelName: {fileID: 3152547300957504795}
+  _timer: {fileID: 0}
+  _time: 0
 --- !u!1 &4994659436701394239
 GameObject:
   m_ObjectHideFlags: 0

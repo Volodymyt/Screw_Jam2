@@ -4,6 +4,7 @@ ScriptsOnlyBuild:
     - Board
     - BoardController
     - BoltController
+    - BoltGlobalScript
     - BoltMovement
     - BoltTouch
     - CubeRotation
@@ -20,6 +21,9 @@ ScriptsOnlyBuild:
     - TMPro.TMP_StyleSheet
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -83,42 +87,6 @@ ScriptsOnlyBuild:
     fullTypeName: Hole
     methodName: TouchHole
   - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
   - assembly: Assembly-CSharp
@@ -155,6 +123,24 @@ ScriptsOnlyBuild:
     fullTypeName: Hole
     methodName: TouchHole
   - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
     fullTypeName: Hole
     methodName: TouchHole
   - assembly: Assembly-CSharp
@@ -181,6 +167,24 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
   - assembly: Assembly-CSharp
     fullTypeName: Hole
     methodName: TouchHole
@@ -195,7 +199,16 @@ ScriptsOnlyBuild:
     methodName: TouchHole
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
+    methodName: LoadLevel
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
     methodName: ClosePanel
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: ChangeAudio
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: OpenPanel
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
     methodName: OpenPanel
@@ -204,7 +217,133 @@ ScriptsOnlyBuild:
     methodName: ChangeAudio
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
-    methodName: OpenScene
+    methodName: ClosePanel
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
   sceneClasses:
     Assets/Scenes/Level 1.unity:
     - Class: 1
@@ -254,37 +393,39 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 17638}
     - Class: 114
-      Script: {instanceID: 17842}
+      Script: {instanceID: 17756}
     - Class: 114
-      Script: {instanceID: 17854}
+      Script: {instanceID: 17844}
     - Class: 114
-      Script: {instanceID: 18044}
+      Script: {instanceID: 17856}
     - Class: 114
-      Script: {instanceID: 18132}
+      Script: {instanceID: 18046}
     - Class: 114
-      Script: {instanceID: 18406}
+      Script: {instanceID: 18134}
     - Class: 114
-      Script: {instanceID: 18648}
+      Script: {instanceID: 18408}
     - Class: 114
-      Script: {instanceID: 19012}
+      Script: {instanceID: 18650}
     - Class: 114
-      Script: {instanceID: 19108}
+      Script: {instanceID: 19014}
     - Class: 114
-      Script: {instanceID: 19120}
+      Script: {instanceID: 19110}
     - Class: 114
-      Script: {instanceID: 19368}
+      Script: {instanceID: 19122}
     - Class: 114
-      Script: {instanceID: 19440}
+      Script: {instanceID: 19370}
     - Class: 114
-      Script: {instanceID: 20074}
+      Script: {instanceID: 19442}
     - Class: 114
-      Script: {instanceID: 20320}
+      Script: {instanceID: 20076}
     - Class: 114
-      Script: {instanceID: 20770}
+      Script: {instanceID: 20322}
     - Class: 114
-      Script: {instanceID: 21082}
+      Script: {instanceID: 20772}
     - Class: 114
-      Script: {instanceID: 21130}
+      Script: {instanceID: 21084}
+    - Class: 114
+      Script: {instanceID: 21132}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -436,7 +577,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 9c04924eceafc6234902627c38fb8da7
+      Hash: ed8cb3d3dd0ba4c675fc57f85303a9ad
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltTouch
@@ -494,6 +635,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: TMPro.Examples
     className: TMP_TextSelector_A
+  - hash:
+      serializedVersion: 2
+      Hash: 85f12a3ff8fe3ca50906b700dc51196a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: BoltGlobalScript
   - hash:
       serializedVersion: 2
       Hash: 751e5bae2a317288c2ab58d66687092b
@@ -562,7 +709,7 @@ ScriptsOnlyBuild:
     className: UnityOnDropdownValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: cb13b8aa30914b1d37078295e8b6b6c3
+      Hash: 8229692c3d2e60f8e0b1212841621480
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIOptions
@@ -784,7 +931,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: 799020d856c2f978c6d19aa4333faff9
+      Hash: 786b69e173dcb2b7b1763d06b9ae2945
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltMovement

@@ -73,7 +73,7 @@ public class BoltMovement : MonoBehaviour
                 _board.AddBolt(this.gameObject);
             }
 
-            StartCoroutine(SetBoltActiveFalse());
+            _controller.AddNewBolt();
         }
     }
 
@@ -117,6 +117,16 @@ public class BoltMovement : MonoBehaviour
             _canMove = false;
             lerpTime = 0f;
         }
+
+        if (Vector3.Distance(_transform.position, Hole.transform.position) < 0.1f)
+        {
+            StartCoroutine(CanUseBolt());
+
+            lerpTime = 0;
+            _can = false;
+            _canScrew = false;
+            _controller.AddBoards();
+        }
     }
 
     public void StayBoltCollider()
@@ -153,20 +163,10 @@ public class BoltMovement : MonoBehaviour
         return _canMove;
     }
 
-    private IEnumerator SetBoltActiveFalse()
+    private IEnumerator CanUseBolt()
     {
-        _controller.AddNewBolt();
+        yield return new WaitForSeconds(0.5f);
 
-        yield return new WaitForSeconds(_timeForMove);
-
-        if (_canScrew == true)
-        {
-            _boltGloblScript.SetBoltMoveActiveTrue();
-        }
-
-        lerpTime = 0;
-        _can = false;
-        _canScrew = false;
-        _controller.AddBoards();
+        _boltGloblScript.SetBoltMoveActiveTrue();
     }
 }

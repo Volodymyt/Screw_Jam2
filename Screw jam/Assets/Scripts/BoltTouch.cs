@@ -21,7 +21,6 @@ public class BoltTouch : MonoBehaviour
             _bolt.CheckingActiveBolt();
             _board.BoltsCheking(gameObject, _transform);
         }
-       // _boltGlobalScript.SetBoltMoveActiveFalse();
     }
 
     public void RemoveBoard()
