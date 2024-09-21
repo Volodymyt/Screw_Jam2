@@ -90,7 +90,7 @@ public class Hole : MonoBehaviour
 
     private IEnumerator SetHoleActiveFalse()
     {
-        yield return new WaitForSeconds(0.9f);
+        yield return new WaitForSeconds(0.1f);
 
         _useThisHole = false;
         _canScrewing = false;
