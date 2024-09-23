@@ -868,9 +868,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 3591101737885650603, guid: dca94924b9e70dc4da21a8ca8a76c649, type: 3}
+    - target: {fileID: 2797121753883562826, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797121753883562826, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797121753883562826, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 95
+      objectReference: {fileID: 0}
     - target: {fileID: 2825636752125828697, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _time
-      value: 50
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4188788557987785747, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: rotationSpeed

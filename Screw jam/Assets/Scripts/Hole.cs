@@ -6,7 +6,7 @@ public class Hole : MonoBehaviour
     [SerializeField] private bool _holeInCube = false, _holeInPanel = false, _holeInBoard = false;
     [SerializeField] private Transform _endOffsetForBolt, _startOfHole, _endOfHole;
 
-    private bool _useThisHole = false, _canScrewing = false;
+    [SerializeField] private bool _useThisHole = false, _canScrewing = false;
     private float _radius = 0.1f;
 
     public bool CanScrewing()

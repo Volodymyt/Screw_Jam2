@@ -221,7 +221,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.001f)
+        if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.0000001f)
         {
             _isMoving = false;
         }

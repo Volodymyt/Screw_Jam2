@@ -115,7 +115,7 @@ public class BoltMovement : MonoBehaviour
 
         _transform.rotation = Hole.transform.rotation;
 
-        if (Vector3.Distance(_transform.position, EndOffsetVector) < 1.2f)
+        if (Vector3.Distance(_transform.position, EndOffsetVector) < 1.1f)
         {
             _canScrew = true;
             _canMove = false;
