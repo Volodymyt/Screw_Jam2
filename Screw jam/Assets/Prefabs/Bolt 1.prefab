@@ -124,6 +124,11 @@ MonoBehaviour:
   _board: {fileID: 0}
   _controller: {fileID: 8365377848027126508}
   _transform: {fileID: 5802397014818845269}
+  _boltGloblScript: {fileID: 0}
+  _canMove: 0
+  _canScrew: 0
+  _can: 0
+  lerpTime: 0
 --- !u!114 &3187830992351879028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a630738e6ba2d874db87c2684e056b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boltGlobalScript: {fileID: 0}
   _board: {fileID: 0}
   _bolt: {fileID: 958366127840711693}
   _transform: {fileID: 5802397014818845269}
@@ -316,7 +322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230881444202212517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.85, z: 0}
+  m_LocalPosition: {x: 0, y: -1.111, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -517,5 +523,5 @@ Transform:
   m_Children:
   - {fileID: 5647747847338749164}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}

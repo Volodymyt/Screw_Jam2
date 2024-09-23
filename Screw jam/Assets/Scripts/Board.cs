@@ -11,7 +11,6 @@ public class Board : MonoBehaviour
     [SerializeField] private bool _isMoving = true, _addBolt = false;
     [SerializeField] private Board _board;
 
-    private BoltGlobalScript _boltGloblScript;
     private UIOptions _UIOptions;
     private HingeJoint[] _hingeJoints;
     private Transform _boltMovePoint, _boltTransform;
@@ -23,7 +22,6 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        _boltGloblScript = FindObjectOfType<BoltGlobalScript>();
         _UIOptions = FindObjectOfType<UIOptions>();
         _freeHoles = FindObjectOfType<HolesChecking>();
 
@@ -219,20 +217,15 @@ public class Board : MonoBehaviour
         {
             if (activeBolts == 1)
             {
-                _lastBolt.GetComponent<BoltController>().StopRotation();
+                _lastBolt.GetComponent<BoltController>().AdjustThePositionOfAnchor();
             }
         }
 
-        yield return new WaitForSeconds(0.4f);
-
-        if (_lastBolt != null && _lastBolt == _boltToRemove)
+        if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.001f)
         {
-            if (activeBolts == 1)
-            {
-                _lastBolt.GetComponent<BoltController>().StartRotation();
-            }
+            _isMoving = false;
         }
 
-        _isMoving = false;
+        yield return null;
     }
 }

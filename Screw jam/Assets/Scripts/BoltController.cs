@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class BoltController : MonoBehaviour
@@ -6,6 +7,7 @@ public class BoltController : MonoBehaviour
     [SerializeField] private Board[] _boards;
     [SerializeField] private Transform _startOfBolt, _endOfBolt;
 
+    private HingeJoint[] _hingeJoints;
     private List<Board> _boardsList = new List<Board>();
 
     private void Start()
@@ -45,36 +47,29 @@ public class BoltController : MonoBehaviour
         }
     }
 
-    public void StopRotation()
+    public void AdjustThePositionOfAnchor()
     {
-        for (int i = 0; i < _boards.Length; i++)
-        {
-            _boards[i].GetComponent<Rigidbody>().isKinematic = true;
-        }
-    }
+        Vector3 initialAnchorPosition;
+        Vector3 initialObjectPosition;
+        bool _canSetHingeJoints = true;
 
-    public void StartRotation()
-    {
-        Vector3 anchorPoition;
-        float hingesCount = 0;
-
-        for (int i = 0; i < _boards.Length; i++)
+        if (_canSetHingeJoints)
         {
-            _boards[i].GetComponent<Rigidbody>().isKinematic = false;
+            _hingeJoints = gameObject.GetComponents<HingeJoint>();
+            _canSetHingeJoints = false;
         }
 
-        HingeJoint[] hinges = gameObject.GetComponents<HingeJoint>();
-
-        foreach (HingeJoint hinge in hinges)
+        for (int i = 0; i < _boards.Length; i++)
         {
-            anchorPoition = hinge.connectedAnchor;
+            initialAnchorPosition = _hingeJoints[i].anchor;
+            initialObjectPosition = transform.position;
 
-            anchorPoition.z = -1.3f + hingesCount;
+            float zOffset = transform.position.z - initialObjectPosition.z;
 
-            hingesCount += -1.6f;
+            Vector3 newAnchorPosition = initialAnchorPosition;
+            newAnchorPosition.z -= zOffset;
 
-            hinge.autoConfigureConnectedAnchor = false;
-            hinge.connectedAnchor = anchorPoition;
+            _hingeJoints[i].anchor = newAnchorPosition;
         }
     }
 

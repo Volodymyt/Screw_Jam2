@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class BoltMovement : MonoBehaviour
@@ -12,7 +11,7 @@ public class BoltMovement : MonoBehaviour
 
     private HolesChecking _activeHole;
     private CapsuleCollider _boltCollider;
-    private Transform _centerOfRotation;
+    private Transform _centerOfRotation, _endOffset;
     private GameObject _meinCamera, _cube, _hole;
     private float updateInterval = 0.05f;
     private float timeElapsed = 0f;
@@ -93,14 +92,17 @@ public class BoltMovement : MonoBehaviour
 
     private void Movement(GameObject Hole)
     {
-        BackBoltCollider();
 
-        Transform EndOffset = Hole.GetComponent<Hole>().SetOffset();
+        if (_endOffset == null)
+        {
+            BackBoltCollider();
+            _endOffset = Hole.GetComponent<Hole>().SetOffset();
+        }
 
         lerpTime += _speed * Time.deltaTime;
 
         Vector3 StartOffset = _transform.position - _centerOfRotation.position;
-        Vector3 EndOffsetVector = EndOffset.position - _centerOfRotation.position;
+        Vector3 EndOffsetVector = _endOffset.position - _centerOfRotation.position;
 
         Vector3 currentPosition = Vector3.Slerp(StartOffset, EndOffsetVector, lerpTime);
 
@@ -131,6 +133,7 @@ public class BoltMovement : MonoBehaviour
             _can = false;
             _canScrew = false;
             _controller.AddBoards();
+            _endOffset = null;
         }
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIOptions : MonoBehaviour
 {
@@ -54,11 +55,10 @@ public class UIOptions : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void LoadLevel(GameObject level)
+    public void LoadLevel()
     {
+        SceneManager.LoadScene(0);
         PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
-        Instantiate(level);
-        Destroy(_thisLevel);
         Time.timeScale = 1;
     }
 
