@@ -3,20 +3,25 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class UIOptions : MonoBehaviour
 {
-    [SerializeField] int _boards;
+    [SerializeField] private GameObject[] _levels;
     [SerializeField] private GameObject _winPanle, _losePanel;
     [SerializeField] private Sprite _soundButtonOffSprite, _soundButtonOnSprite;
     [SerializeField] private Image _soundsButtonIamge;
     [SerializeField] private GameObject _thisLevel;
     [SerializeField] private Text _levelName;
     [SerializeField] private TMP_Text _timer;
-    [SerializeField] float _time;
+    [SerializeField] private bool _loadLevelRandom = false;
+    [SerializeField] private int _boards;
+    [SerializeField] private float _time;
 
     private void Start()
     {
+        Time.timeScale = 1;
+
         if (!PlayerPrefs.HasKey("Level"))
         {
             PlayerPrefs.SetInt("Level", 1);
@@ -43,6 +48,14 @@ public class UIOptions : MonoBehaviour
         }
     }
 
+    private void LoadLevelRandom()
+    {
+        if (_loadLevelRandom)
+        {
+            Instantiate(_levels[Random.Range(0, _levels.Length)]);
+        }
+    }
+
     public void OpenPanel(GameObject panel)
     {
         panel.SetActive(true);
@@ -57,15 +70,19 @@ public class UIOptions : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(0);
-        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        SceneManager.LoadScene(1);
         Time.timeScale = 1;
+        /* PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+         Time.timeScale = 1;
+         Instantiate(_levels[1]);
+         Destroy(_thisLevel);
+
+         Debug.Log("ok");*/
     }
 
-    public void Restart(GameObject level)
+    public void Restart(int level)
     {
-        Destroy(_thisLevel);
-        Instantiate(level);
+        SceneManager.LoadScene(level);
         Time.timeScale = 1;
     }
 

@@ -92,7 +92,6 @@ public class BoltMovement : MonoBehaviour
 
     private void Movement(GameObject Hole)
     {
-
         if (_endOffset == null)
         {
             BackBoltCollider();

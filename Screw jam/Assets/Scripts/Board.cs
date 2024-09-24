@@ -15,7 +15,7 @@ public class Board : MonoBehaviour
     private HingeJoint[] _hingeJoints;
     private Transform _boltMovePoint, _boltTransform;
     private HolesChecking _freeHoles;
-    private GameObject _lastBolt, _boltToRemove;
+    [SerializeField] private GameObject _lastBolt, _boltToRemove;
     private int _boltsCount, _boltsCountOnTheStart;
     private int value = 2;
     private bool canUseBolt = false;
@@ -55,7 +55,7 @@ public class Board : MonoBehaviour
         else if (canUseBolt == true && _freeHoles.CheckHoles() == null && _isMoving)
         {
             FindEmptyObjectsInRadius();
-            StartCoroutine(BoltMoveToPoint());
+            BoltMoveToPoint();
         }
     }
 
@@ -89,19 +89,19 @@ public class Board : MonoBehaviour
 
     private IEnumerator CheckBolts(GameObject BoltToRemove)
     {
-        if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
+        for (int i = 0; i < _bolts.Length; i++)
         {
-            for (int i = 0; i < _bolts.Length; i++)
+            if (_bolts[i] == BoltToRemove)
             {
-                if (_bolts[i] == BoltToRemove)
+                if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
                 {
-                    if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
-                    {
-                        _bolts[i] = null;
-                    }
+                    _bolts[i] = null;
                 }
             }
+        }
 
+        if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
+        {
             _boltToRemove = null;
 
             yield return new WaitForSeconds(_timeForMove);
@@ -197,35 +197,22 @@ public class Board : MonoBehaviour
         return _boltToRemove;
     }
 
-    private IEnumerator BoltMoveToPoint()
+    private void BoltMoveToPoint()
     {
-        int activeBolts = 0;
-
         _boltToRemove.GetComponent<BoltMovement>().StayBoltCollider();
 
-        _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
-
-        foreach (GameObject bolt in _bolts)
-        {
-            if (bolt != null)
-            {
-                activeBolts++;
-            }
-        }
-
-        if (_lastBolt != null && _lastBolt == _boltToRemove)
-        {
-            if (activeBolts == 1)
-            {
-                _lastBolt.GetComponent<BoltController>().AdjustThePositionOfAnchor();
-            }
-        }
-
-        if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.0000001f)
+        if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.2f)
         {
             _isMoving = false;
         }
+        else
+        {
+            _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
+        }
 
-        yield return null;
+        if (_lastBolt != null)
+        {
+            _lastBolt.GetComponent<BoltController>().AdjustThePositionOfAnchor();
+        }
     }
 }
