@@ -37,7 +37,7 @@ Transform:
   - {fileID: 4628350953912138670}
   - {fileID: 5039804599546961935}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &5167192163805771660
 MeshFilter:
@@ -130,6 +130,8 @@ MonoBehaviour:
   _endOffsetForBolt: {fileID: 4411894801303105812}
   _startOfHole: {fileID: 5039804599546961935}
   _endOfHole: {fileID: 4628350953912138670}
+  _useThisHole: 0
+  _canScrewing: 0
 --- !u!1 &4495713477467279918
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +159,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4495713477467279918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -17}
+  m_LocalPosition: {x: 0, y: 0, z: -79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,8 +168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.1, y: 0.17}
-  m_SizeDelta: {x: 19.95, y: 20.02}
+  m_AnchoredPosition: {x: -0.1, y: 0.2}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4880137658320265187
 CanvasRenderer:

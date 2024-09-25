@@ -123,7 +123,7 @@ public class BoltMovement : MonoBehaviour
 
         if (Vector3.Distance(_transform.position, Hole.transform.position) < 0.1f)
         {
-            if (_canScrew == true && _activeHole.CheckHoles() == null)
+            if (_canScrew == true)
             {
                 _boltGloblScript.SetBoltMoveActiveTrue();
             }

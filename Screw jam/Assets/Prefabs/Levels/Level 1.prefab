@@ -116,10 +116,10 @@ RectTransform:
   m_Father: {fileID: 4231818120644788330}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 51.594482, y: 69.35693}
+  m_SizeDelta: {x: -1028.4055, y: -1850.6431}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &254703216571807474
 CanvasRenderer:
@@ -280,9 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce91b85a85d279b4ab8fc15a07847280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levels:
-  - {fileID: 0}
-  - {fileID: 6939379842791002297}
+  _maxScenes: 0
   _winPanle: {fileID: 4895225829879506646}
   _losePanel: {fileID: 119323878467992511}
   _soundButtonOffSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
@@ -293,7 +291,7 @@ MonoBehaviour:
   _timer: {fileID: 2912721206395470885}
   _loadLevelRandom: 1
   _boards: 0
-  _time: 6
+  _time: 30
 --- !u!1 &1109022209526482074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,10 +1583,10 @@ RectTransform:
   m_Father: {fileID: 4231818120644788330}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 51.594482, y: 69.35693}
+  m_SizeDelta: {x: -1028.4055, y: -1850.6431}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &851412430305891543
 CanvasRenderer:
@@ -1731,10 +1729,10 @@ RectTransform:
   m_Father: {fileID: 4231818120644788330}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 51.594482, y: 69.35693}
+  m_SizeDelta: {x: -1028.4055, y: -1850.6431}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3838298433378756490
 CanvasRenderer:
@@ -2292,7 +2290,7 @@ Transform:
   - {fileID: 1716847282161379230}
   - {fileID: 8549603204632461290}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7582356085165566962
 GameObject:

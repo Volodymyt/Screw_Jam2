@@ -3,11 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Linq;
 
 public class UIOptions : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _levels;
+    [SerializeField] private int _maxScenes;
     [SerializeField] private GameObject _winPanle, _losePanel;
     [SerializeField] private Sprite _soundButtonOffSprite, _soundButtonOnSprite;
     [SerializeField] private Image _soundsButtonIamge;
@@ -20,12 +19,64 @@ public class UIOptions : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(PlayerPrefs.GetInt("MaxLevel1"));
+        if (!PlayerPrefs.HasKey("MaxLevel1"))
+        {
+            PlayerPrefs.SetInt("MaxLevel1", 0);
+        }
+
+        if (PlayerPrefs.GetInt("MaxLevel1") == 1)
+        {
+            _loadLevelRandom = true;
+        }
+        else
+        {
+            _loadLevelRandom = false;
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
+        {
+            PlayerPrefs.SetInt("MaxLevel1", 1);
+        }
+
+        int lastSceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+
         Time.timeScale = 1;
 
         if (!PlayerPrefs.HasKey("Level"))
         {
             PlayerPrefs.SetInt("Level", 1);
         }
+
+        if (_loadLevelRandom)
+        {
+            if (!PlayerPrefs.HasKey("Scene"))
+            {
+                PlayerPrefs.SetInt("Scene", SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                int savedSceneIndex = PlayerPrefs.GetInt("Scene");
+
+                if (savedSceneIndex != SceneManager.GetActiveScene().buildIndex)
+                {
+                    SceneManager.LoadScene(savedSceneIndex);
+                }
+            }
+        }
+        else
+        {
+            if (!PlayerPrefs.HasKey("Scene"))
+            {
+                PlayerPrefs.SetInt("Scene", SceneManager.GetActiveScene().buildIndex);
+            }
+
+            if (PlayerPrefs.GetInt("Scene") != SceneManager.GetActiveScene().buildIndex)
+            {
+                SceneManager.LoadScene(PlayerPrefs.GetInt("Scene"));
+            }
+        }
+
 
         _levelName.text = "Level " + PlayerPrefs.GetInt("Level");
 
@@ -48,14 +99,6 @@ public class UIOptions : MonoBehaviour
         }
     }
 
-    private void LoadLevelRandom()
-    {
-        if (_loadLevelRandom)
-        {
-            Instantiate(_levels[Random.Range(0, _levels.Length)]);
-        }
-    }
-
     public void OpenPanel(GameObject panel)
     {
         panel.SetActive(true);
@@ -70,14 +113,26 @@ public class UIOptions : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(1);
-        Time.timeScale = 1;
-        /* PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
-         Time.timeScale = 1;
-         Instantiate(_levels[1]);
-         Destroy(_thisLevel);
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
 
-         Debug.Log("ok");*/
+        if (_loadLevelRandom)
+        {
+            int levelNumber = 0;
+            do
+            {
+                levelNumber = Random.Range(0, _maxScenes);
+            } while (levelNumber == SceneManager.GetActiveScene().buildIndex);
+
+            PlayerPrefs.SetInt("Scene", levelNumber);
+            SceneManager.LoadScene(levelNumber);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Scene", PlayerPrefs.GetInt("Scene") + 1);
+            SceneManager.LoadScene(PlayerPrefs.GetInt("Scene"));
+        }
+
+        Time.timeScale = 1;
     }
 
     public void Restart(int level)

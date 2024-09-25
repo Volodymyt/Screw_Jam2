@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ef0db94a82e1c4ea61067114a58ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.2
+  _speed: 1
   _timeForMove: 0.9
   _screwingSpeed: 35
   _board: {fileID: 0}
@@ -153,7 +153,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900999998628500770}
   serializedVersion: 4
-  m_Mass: 0.3
+  m_Mass: 4
   m_Drag: 0.27
   m_AngularDrag: 0.24
   m_CenterOfMass: {x: 0, y: 0, z: 0}
