@@ -8,8 +8,9 @@ public class UIOptions : MonoBehaviour
 {
     [SerializeField] private int _maxScenes;
     [SerializeField] private GameObject _winPanle, _losePanel;
-    [SerializeField] private Sprite _soundButtonOffSprite, _soundButtonOnSprite;
-    [SerializeField] private Image _soundsButtonIamge;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private Sprite _soundButtonOffSprite, _soundButtonOnSprite, _vibrateButtonOffSprite, _vibrateButtonOnSprite;
+    [SerializeField] private Image _soundsButtonIamge, _vibrateButtonImage;
     [SerializeField] private GameObject _thisLevel;
     [SerializeField] private Text _levelName;
     [SerializeField] private TMP_Text _timer;
@@ -19,10 +20,39 @@ public class UIOptions : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(PlayerPrefs.GetInt("MaxLevel1"));
         if (!PlayerPrefs.HasKey("MaxLevel1"))
         {
             PlayerPrefs.SetInt("MaxLevel1", 0);
+        }
+        
+        if (!PlayerPrefs.HasKey("Audio"))
+        {
+            PlayerPrefs.SetInt("Audio", 1);
+        }
+
+        if (PlayerPrefs.GetInt("Audio") == 1)
+        {
+            _audioSource.volume = 1;
+            _soundsButtonIamge.sprite = _soundButtonOnSprite;
+        }
+        else
+        {
+            _audioSource.volume = 0;
+            _soundsButtonIamge.sprite = _soundButtonOffSprite;
+        }
+
+        if (!PlayerPrefs.HasKey("Vibrate"))
+        {
+            PlayerPrefs.SetInt("Vibrate", 1);
+        }
+
+        if (PlayerPrefs.GetInt("Vibrate") == 1)
+        {
+            _vibrateButtonImage.sprite = _vibrateButtonOnSprite;
+        }
+        else
+        {
+            _vibrateButtonImage.sprite = _vibrateButtonOffSprite;
         }
 
         if (PlayerPrefs.GetInt("MaxLevel1") == 1)
@@ -141,18 +171,34 @@ public class UIOptions : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void ChangeAudio(AudioSource audioSource)
+    public void ChangeAudio()
     {
-        if (audioSource.volume == 1)
+        if (PlayerPrefs.GetInt("Audio") == 1)
         {
-            audioSource.volume = 0;
+            _audioSource.volume = 0;
             _soundsButtonIamge.sprite = _soundButtonOffSprite;
+            PlayerPrefs.SetInt("Audio", 0);
 
         }
-        else if (audioSource.volume == 0)
+        else if (PlayerPrefs.GetInt("Audio") == 0)
         {
-            audioSource.volume = 1;
+            _audioSource.volume = 1;
             _soundsButtonIamge.sprite = _soundButtonOnSprite;
+            PlayerPrefs.SetInt("Audio", 1);
+        }
+    }
+
+    public void ChangeVibrate()
+    {
+        if (PlayerPrefs.GetInt("Vibrate") == 1)
+        {
+            _vibrateButtonImage.sprite = _vibrateButtonOffSprite;
+            PlayerPrefs.SetInt("Vibrate", 0);
+        }
+        else
+        {
+            _vibrateButtonImage.sprite = _vibrateButtonOnSprite;
+            PlayerPrefs.SetInt("Vibrate", 1);
         }
     }
 

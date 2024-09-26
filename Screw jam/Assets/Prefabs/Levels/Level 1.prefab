@@ -116,10 +116,10 @@ RectTransform:
   m_Father: {fileID: 4231818120644788330}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1028.4055, y: -1850.6431}
+  m_SizeDelta: {x: 51.594482, y: 69.35693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &254703216571807474
 CanvasRenderer:
@@ -283,15 +283,19 @@ MonoBehaviour:
   _maxScenes: 0
   _winPanle: {fileID: 4895225829879506646}
   _losePanel: {fileID: 119323878467992511}
+  _audioSource: {fileID: 4296442688949284150}
   _soundButtonOffSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   _soundButtonOnSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  _vibrateButtonOffSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _vibrateButtonOnSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   _soundsButtonIamge: {fileID: 1528973927259970486}
+  _vibrateButtonImage: {fileID: 7547523509805816210}
   _thisLevel: {fileID: 6939379842791002297}
   _levelName: {fileID: 1354873626831757204}
   _timer: {fileID: 2912721206395470885}
   _loadLevelRandom: 1
   _boards: 0
-  _time: 30
+  _time: 1000
 --- !u!1 &1109022209526482074
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,10 +420,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5822967513268629187}
         m_TargetAssemblyTypeName: UIOptions, Assembly-CSharp
         m_MethodName: ChangeAudio
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 4296442688949284150}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -573,7 +577,7 @@ GameObject:
   - component: {fileID: 7547523509805816210}
   - component: {fileID: 3256056693739133079}
   m_Layer: 5
-  m_Name: ...
+  m_Name: Vibrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,7 +684,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7547523509805816210}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5822967513268629187}
+        m_TargetAssemblyTypeName: UIOptions, Assembly-CSharp
+        m_MethodName: ChangeVibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1879444902828834809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,10 +1599,10 @@ RectTransform:
   m_Father: {fileID: 4231818120644788330}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1028.4055, y: -1850.6431}
+  m_SizeDelta: {x: 51.594482, y: 69.35693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &851412430305891543
 CanvasRenderer:
@@ -1720,8 +1736,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4895225829879506646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1565}
-  m_LocalScale: {x: 1, y: 1, z: -38.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 17.04126, y: 17.04126, z: -659.4968}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3914899424980051210}
@@ -1729,10 +1745,10 @@ RectTransform:
   m_Father: {fileID: 4231818120644788330}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1028.4055, y: -1850.6431}
+  m_SizeDelta: {x: 51.594482, y: 69.35693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3838298433378756490
 CanvasRenderer:

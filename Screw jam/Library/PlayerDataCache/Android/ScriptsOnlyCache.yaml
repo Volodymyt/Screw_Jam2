@@ -199,145 +199,7 @@ ScriptsOnlyBuild:
     methodName: ClosePanel
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
-    methodName: ChangeAudio
-  - assembly: Assembly-CSharp
-    fullTypeName: UIOptions
-    methodName: OpenPanel
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: UIOptions
-    methodName: ClosePanel
-  - assembly: Assembly-CSharp
-    fullTypeName: UIOptions
-    methodName: Restart
-  - assembly: Assembly-CSharp
-    fullTypeName: UIOptions
-    methodName: LoadLevel
-  - assembly: Assembly-CSharp
-    fullTypeName: UIOptions
-    methodName: ClosePanel
+    methodName: ChangeVibrate
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
     methodName: ChangeAudio
@@ -479,6 +341,153 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
     methodName: ClosePanel
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: ChangeVibrate
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: ChangeAudio
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: OpenPanel
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: ClosePanel
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: Restart
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: LoadLevel
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: ClosePanel
+  - assembly: Assembly-CSharp
+    fullTypeName: UIOptions
+    methodName: ChangeVibrate
   - assembly: Assembly-CSharp
     fullTypeName: UIOptions
     methodName: ChangeAudio
@@ -1024,7 +1033,7 @@ ScriptsOnlyBuild:
     className: UnityOnDropdownValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: f00a7335b397b4bce0ec7f6f9eb3b724
+      Hash: 2f737c138c02ce24018b580585274359
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIOptions

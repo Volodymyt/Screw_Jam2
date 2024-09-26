@@ -89,7 +89,6 @@ public class Board : MonoBehaviour
 
     private IEnumerator CheckBolts(GameObject BoltToRemove)
     {
-
         for (int i = 0; i < _bolts.Length; i++)
         {
             if (_bolts[i] == BoltToRemove)
@@ -105,7 +104,6 @@ public class Board : MonoBehaviour
 
         if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
         {
-
             yield return new WaitForSeconds(_timeForMove);
 
             foreach (GameObject Bolt in _bolts)
@@ -120,7 +118,6 @@ public class Board : MonoBehaviour
                 else
                 {
                     _lastBolt = Bolt;
-
                 }
             }
 

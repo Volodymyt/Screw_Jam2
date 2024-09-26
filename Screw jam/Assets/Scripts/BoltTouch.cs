@@ -20,7 +20,11 @@ public class BoltTouch : MonoBehaviour
             _board.CanUseAnyBolt();
             _bolt.CheckingActiveBolt();
             _board.BoltsCheking(gameObject, _transform);
-            Handheld.Vibrate();
+
+            if (PlayerPrefs.GetInt("Vibrate") == 1)
+            {
+                Handheld.Vibrate();
+            }
         }
     }
 

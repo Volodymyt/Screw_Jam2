@@ -17,44 +17,73 @@ public class Hole : MonoBehaviour
 
         if (SetBoltInBoard() == true)
         {
-            RaycastHit[] Objects = Physics.CapsuleCastAll(_startOfHole.position, _endOfHole.position, _radius, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
-
-            for (int i = 0; i < Objects.Length; i++)
+            if (CheckOnTop() == true)
             {
-                if (Objects[i].collider.GetComponent<Hole>() != null)
+                RaycastHit[] Objects = Physics.CapsuleCastAll(_startOfHole.position, _endOfHole.position, _radius, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
+
+                for (int i = 0; i < Objects.Length; i++)
                 {
-                    if (Objects[i].collider.GetComponent<Hole>().SetBoltInBoard())
+                    if (Objects[i].collider.GetComponent<Hole>() != null)
                     {
-                        HolesInBoard++;
-                    }
-                    else if (Objects[i].collider.GetComponent<Hole>().SetBoltInCube())
-                    {
-                        HolesInCube++;
+                        if (Objects[i].collider.GetComponent<Hole>().SetBoltInBoard())
+                        {
+                            HolesInBoard++;
+                        }
+                        else if (Objects[i].collider.GetComponent<Hole>().SetBoltInCube())
+                        {
+                            HolesInCube++;
+                        }
                     }
                 }
-            }
 
-            for (int i = 0; i < Objects.Length; i++)
-            {
-                if (Objects[i].collider.GetComponent<Board>() != null)
+                for (int i = 0; i < Objects.Length; i++)
                 {
-                    Boards++;
+                    if (Objects[i].collider.GetComponent<Board>() != null)
+                    {
+                        Boards++;
+                    }
                 }
-            }
 
-            if (HolesInBoard == Boards && HolesInCube > 0)
+                if (HolesInBoard == Boards && HolesInCube > 0 && CheckOnTop() == true)
+                {
+                    _canScrewing = true;
+                }
+
+                Debug.Log("Holes In Board: " + HolesInBoard + ", Holes In Cube: " + HolesInCube + ", Boards: " + Boards);
+            }
+        }
+        else if (SetBoltInCube() == true)
+        {
+            if (CheckOnTop() == true)
             {
                 _canScrewing = true;
             }
-            
-            Debug.Log("Holes In Board: " + HolesInBoard + ", Holes In Cube: " + HolesInCube + ", Boards: " + Boards);
         }
         else
         {
             _canScrewing = true;
         }
-        
+
         return _canScrewing;
+    }
+
+    private bool CheckOnTop()
+    {
+        bool canScrew = true;
+
+        RaycastHit[] Objects = Physics.CapsuleCastAll(_startOfHole.position, _endOffsetForBolt.position, _radius, _endOffsetForBolt.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOffsetForBolt.position));
+
+        for (int i = 0; i < Objects.Length; i++)
+        {
+            if (Objects[i].collider.GetComponent<Board>() != null)
+            {
+                canScrew = false; break;
+            }
+        }
+
+        Debug.Log(canScrew);
+
+        return canScrew;
     }
 
     public void TouchHole()
