@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BoltMovement : MonoBehaviour
@@ -5,6 +6,7 @@ public class BoltMovement : MonoBehaviour
     [SerializeField] private float _speed, _timeForMove, _screwingSpeed;
     [SerializeField] private Board _board;
     [SerializeField] private BoltController _controller;
+    [SerializeField] private BoltTouch _boltTouch;
     [SerializeField] private Transform _transform;
     [SerializeField] private BoltGlobalScript _boltGloblScript;
     [SerializeField] private bool _canMove = false, _canScrew = false, _can = false;
@@ -15,7 +17,7 @@ public class BoltMovement : MonoBehaviour
     private GameObject _meinCamera, _cube, _hole;
     private float updateInterval = 0.05f;
     private float timeElapsed = 0f;
-    [SerializeField] private float lerpTime = 0f;
+    private float lerpTime = 0f;
 
     private void Start()
     {
@@ -163,6 +165,43 @@ public class BoltMovement : MonoBehaviour
         newCenter = _boltCollider.center;
         newCenter.y = 0;
         _boltCollider.center = newCenter;
+    }
+
+    public void MoveBack()
+    {
+        StartCoroutine(MoveBoltBack());
+    }
+
+    private IEnumerator MoveBoltBack()
+    {
+        GameObject hole = null;
+        if (_canMove == true)
+        {
+            if (_board != null)
+            {
+                hole = _board.FindClosestHoleToBolt(gameObject);
+            }
+            else
+            {
+                _board = _boltTouch.ReturnBoard();
+                hole = _board.FindClosestHoleToBolt(gameObject);
+            }
+
+            _board.SetBoltToRemuveNull();
+            _board.DoThat();
+
+            while (Vector3.Distance(_transform.position, hole.transform.position) > 0.01f)
+            {
+                _transform.position = Vector3.MoveTowards(_transform.position, hole.transform.position, _screwingSpeed * Time.deltaTime);
+                
+                gameObject.GetComponent<BoltController>().AdjustThePositionOfAnchor();
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+            _canMove = false;
+        }
     }
 
     public bool ReturneMove()

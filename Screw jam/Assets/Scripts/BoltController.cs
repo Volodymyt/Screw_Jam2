@@ -48,29 +48,32 @@ public class BoltController : MonoBehaviour
 
     public void AdjustThePositionOfAnchor()
     {
-        Vector3 initialAnchorPosition;
-        Vector3 initialObjectPosition;
-        bool _canSetHingeJoints = true;
-
-        if (_canSetHingeJoints)
+        if (gameObject.GetComponents<HingeJoint>() != null)
         {
-            _hingeJoints = gameObject.GetComponents<HingeJoint>();
-            _canSetHingeJoints = false;
-        }
+            Vector3 initialAnchorPosition;
+            Vector3 initialObjectPosition;
+            bool _canSetHingeJoints = true;
 
-        for (int i = 0; i < _boards.Length + 3; i++)
-        {
-            if (i < Mathf.Max(_hingeJoints.Length))
+            if (_canSetHingeJoints)
             {
-                initialAnchorPosition = _hingeJoints[i].anchor;
-                initialObjectPosition = transform.position;
+                _hingeJoints = gameObject.GetComponents<HingeJoint>();
+                _canSetHingeJoints = false;
+            }
 
-                float zOffset = transform.position.z - initialObjectPosition.z;
+            for (int i = 0; i < _boards.Length + 3; i++)
+            {
+                if (i < Mathf.Max(_hingeJoints.Length))
+                {
+                    initialAnchorPosition = _hingeJoints[i].anchor;
+                    initialObjectPosition = transform.position;
 
-                Vector3 newAnchorPosition = initialAnchorPosition;
-                newAnchorPosition.z -= zOffset;
+                    float zOffset = transform.position.z - initialObjectPosition.z;
 
-                _hingeJoints[i].anchor = newAnchorPosition;
+                    Vector3 newAnchorPosition = initialAnchorPosition;
+                    newAnchorPosition.z -= zOffset;
+
+                    _hingeJoints[i].anchor = newAnchorPosition;
+                }
             }
         }
     }

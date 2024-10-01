@@ -43,8 +43,6 @@ public class Board : MonoBehaviour
         {
             StartCoroutine(CheckBolts(_boltToRemove));
 
-
-
             canUseBolt = false;
         }
         else if (canUseBolt == true && _freeHoles.CheckHoles() == null && _isMoving)
@@ -235,6 +233,28 @@ public class Board : MonoBehaviour
         }
     }
 
+    public GameObject FindClosestHoleToBolt(GameObject bolt)
+    {
+        GameObject closestHole = null;
+        float closestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < _holes.Length; i++)
+        {
+            GameObject hole = _holes[i];
+
+            float distance = Vector3.Distance(bolt.transform.position, hole.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestHole = hole;
+            }
+        }
+
+        Debug.Log(closestHole.gameObject.name);
+        return closestHole;
+    }
+
     public void BoltsCheking(GameObject BoltToRemove, Transform BoltTransform)
     {
         _boltToRemove = BoltToRemove;
@@ -245,6 +265,11 @@ public class Board : MonoBehaviour
     public void CanUseAnyBolt()
     {
         canUseBolt = true;
+    }
+
+    public void SetBoltToRemuveNull()
+    {
+        _boltToRemove = null;
     }
 
     public void DoThat()

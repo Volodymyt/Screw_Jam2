@@ -910,7 +910,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: ed8cb3d3dd0ba4c675fc57f85303a9ad
+      Hash: 745729e194a42f1337ef5487dab186d0
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltTouch
@@ -1264,7 +1264,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: 786b69e173dcb2b7b1763d06b9ae2945
+      Hash: 017e05cad9a2f5de1f60027528a89a12
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltMovement

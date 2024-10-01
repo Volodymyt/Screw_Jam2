@@ -123,12 +123,12 @@ MonoBehaviour:
   _screwingSpeed: 35
   _board: {fileID: 0}
   _controller: {fileID: 8365377848027126508}
+  _boltTouch: {fileID: 3187830992351879028}
   _transform: {fileID: 5802397014818845269}
   _boltGloblScript: {fileID: 0}
   _canMove: 0
   _canScrew: 0
   _can: 0
-  lerpTime: 0
 --- !u!114 &3187830992351879028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boltGlobalScript: {fileID: 0}
+  _boardObject: {fileID: 0}
   _board: {fileID: 0}
   _bolt: {fileID: 958366127840711693}
   _transform: {fileID: 5802397014818845269}
@@ -153,9 +154,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900999998628500770}
   serializedVersion: 4
-  m_Mass: 4
+  m_Mass: 1
   m_Drag: 0.27
-  m_AngularDrag: 0.24
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
