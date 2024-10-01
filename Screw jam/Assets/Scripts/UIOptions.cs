@@ -24,7 +24,7 @@ public class UIOptions : MonoBehaviour
         {
             PlayerPrefs.SetInt("MaxLevel1", 0);
         }
-        
+
         if (!PlayerPrefs.HasKey("Audio"))
         {
             PlayerPrefs.SetInt("Audio", 1);
@@ -148,10 +148,8 @@ public class UIOptions : MonoBehaviour
         if (_loadLevelRandom)
         {
             int levelNumber = 0;
-            do
-            {
-                levelNumber = Random.Range(0, _maxScenes);
-            } while (levelNumber == SceneManager.GetActiveScene().buildIndex);
+
+            levelNumber = Random.Range(0, _maxScenes);
 
             PlayerPrefs.SetInt("Scene", levelNumber);
             SceneManager.LoadScene(levelNumber);
@@ -202,9 +200,9 @@ public class UIOptions : MonoBehaviour
         }
     }
 
-    public void RecoundBourds()
+    public void RecoundBourds(int count)
     {
-        _boards--;
+        _boards -= count;
 
         if (_boards <= 0)
         {

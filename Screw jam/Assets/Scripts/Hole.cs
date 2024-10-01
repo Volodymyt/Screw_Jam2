@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hole : MonoBehaviour
@@ -8,6 +10,9 @@ public class Hole : MonoBehaviour
 
     [SerializeField] private bool _useThisHole = false, _canScrewing = false;
     private float _radius = 0.1f;
+
+    [SerializeField] private GameObject[] _sameBoards;
+    private List<GameObject> _boardsList = new List<GameObject>();
 
     public bool CanScrewing()
     {
@@ -81,8 +86,6 @@ public class Hole : MonoBehaviour
             }
         }
 
-        Debug.Log(canScrew);
-
         return canScrew;
     }
 
@@ -115,6 +118,40 @@ public class Hole : MonoBehaviour
     public Transform SetOffset()
     {
         return _endOffsetForBolt;
+    }
+
+    public void SetOldHole()
+    {
+        RaycastHit[] Objects = Physics.CapsuleCastAll(_startOfHole.position, _endOfHole.position, _radius, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
+
+        for (int i = 0; i < Objects.Length; i++)
+        {
+            if (Objects[i].collider.GetComponent<Board>() != null)
+            {
+                Objects[i].collider.GetComponent<Board>().SetOldHole();
+            }
+        }
+    }
+
+    public GameObject[] GetSameBoards()
+    {
+        RaycastHit[] Objects = Physics.CapsuleCastAll(_startOfHole.position, _endOfHole.position, _radius, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
+
+        HashSet<GameObject> uniqueBoards = new HashSet<GameObject>(_boardsList);
+
+        foreach (var hit in Objects)
+        {
+            Board board = hit.collider.GetComponent<Board>();
+
+            if (board != null)
+            {
+                uniqueBoards.Add(hit.collider.gameObject);
+            }
+        }
+
+        _sameBoards = uniqueBoards.ToArray();
+
+        return _sameBoards;
     }
 
     private IEnumerator SetHoleActiveFalse()

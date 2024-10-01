@@ -141,6 +141,15 @@ ScriptsOnlyBuild:
     fullTypeName: Hole
     methodName: TouchHole
   - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
   - assembly: Assembly-CSharp
@@ -835,7 +844,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: f078cf3468a923ad4a906aa2d9892a78
+      Hash: 19c70196e2f0ff4a44cf18155eb5738e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Hole
@@ -961,7 +970,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 85f12a3ff8fe3ca50906b700dc51196a
+      Hash: 13f3a4038843f90939c39f9569e51019
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltGlobalScript
@@ -1315,7 +1324,7 @@ ScriptsOnlyBuild:
     className: TMP_ExampleScript_01
   - hash:
       serializedVersion: 2
-      Hash: 26d6cb156f596c0b76ef5da62fa53454
+      Hash: 1e436975a3166d5c351ae65603a4446f
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Board

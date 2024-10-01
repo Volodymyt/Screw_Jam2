@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
 public class BoltController : MonoBehaviour
@@ -59,17 +58,20 @@ public class BoltController : MonoBehaviour
             _canSetHingeJoints = false;
         }
 
-        for (int i = 0; i < _boards.Length; i++)
+        for (int i = 0; i < _boards.Length + 3; i++)
         {
-            initialAnchorPosition = _hingeJoints[i].anchor;
-            initialObjectPosition = transform.position;
+            if (i < Mathf.Max(_hingeJoints.Length))
+            {
+                initialAnchorPosition = _hingeJoints[i].anchor;
+                initialObjectPosition = transform.position;
 
-            float zOffset = transform.position.z - initialObjectPosition.z;
+                float zOffset = transform.position.z - initialObjectPosition.z;
 
-            Vector3 newAnchorPosition = initialAnchorPosition;
-            newAnchorPosition.z -= zOffset;
+                Vector3 newAnchorPosition = initialAnchorPosition;
+                newAnchorPosition.z -= zOffset;
 
-            _hingeJoints[i].anchor = newAnchorPosition;
+                _hingeJoints[i].anchor = newAnchorPosition;
+            }
         }
     }
 
