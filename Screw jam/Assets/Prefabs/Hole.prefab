@@ -108,10 +108,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.15254489
+  m_Height: 4.6696343
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.035936866, y: 0, z: 0}
 --- !u!114 &4010155233859522188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,8 +130,12 @@ MonoBehaviour:
   _endOffsetForBolt: {fileID: 4411894801303105812}
   _startOfHole: {fileID: 5039804599546961935}
   _endOfHole: {fileID: 4628350953912138670}
+  _board: {fileID: 0}
   _useThisHole: 0
   _canScrewing: 0
+  _haveBolt: 0
+  _sameBoards: []
+  _holeCollider: {fileID: 2455095288140189581}
 --- !u!1 &4495713477467279918
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5228736550419215829}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 74.77531, z: 0}
+  m_LocalPosition: {x: 0, y: 94.9, z: -0}
   m_LocalScale: {x: 0.7261528, y: 38.281345, z: 0.72615254}
   m_ConstrainProportionsScale: 0
   m_Children: []

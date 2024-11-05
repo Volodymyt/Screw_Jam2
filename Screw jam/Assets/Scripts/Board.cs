@@ -1,33 +1,37 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
     [SerializeField] private GameObject[] _bolts, _holes, _boards;
     [SerializeField] private BoxCollider _boadrBoxCollider;
+    [SerializeField] private BoltGlobalScript _boltGlobalScript;
     [SerializeField] private Rigidbody _boardRigidbody;
     [SerializeField] private float _timeForMove, _moveSpeed;
     [SerializeField] private float _radius;
     [SerializeField] private bool _isMoving = true, _addBolt = false, _newHole = true;
     [SerializeField] private Board _board;
-    [SerializeField] private bool _canRemoveBoard = true, _can = false;
-    [SerializeField] private int _boardsCount = 0;
-
+    [SerializeField] private bool _canRemoveBoard = true, _haveChangedBolt = false;
+    [SerializeField] private bool _can = true, _boltScrewing = false, _did = true, _canScrewNextBolt = true;
+    [SerializeField] private GameObject _changedBolt;
 
     private UIOptions _UIOptions;
     private HingeJoint[] _hingeJoints;
-    private Transform _boltMovePoint, _boltTransform;
+    [SerializeField] private Transform _boltMovePoint, _boltTransform, _closestTransform;
     private HolesChecking _freeHoles;
     private GameObject _lastBolt, _boltToRemove;
     private int _boltsCount, _boltsCountOnTheStart;
     private int value = 2;
-    private bool canUseBolt = false;
+    private bool canUseBolt = false, _deadBoard = false;
     private bool _canRemoveHinge = true;
+
 
     private void Start()
     {
         _UIOptions = FindObjectOfType<UIOptions>();
         _freeHoles = FindObjectOfType<HolesChecking>();
+        _boltGlobalScript = FindObjectOfType<BoltGlobalScript>();
 
         for (int i = 0; i < _bolts.Length; i++)
         {
@@ -44,11 +48,11 @@ public class Board : MonoBehaviour
             StartCoroutine(CheckBolts(_boltToRemove));
 
             canUseBolt = false;
+            _boltGlobalScript.SetClickOnHole(false);
         }
         else if (canUseBolt == true && _freeHoles.CheckHoles() == null && _isMoving)
         {
-            FindEmptyObjectsInRadius();
-            BoltMoveToPoint();
+            StartCoroutine(FindHole());
         }
     }
 
@@ -58,7 +62,7 @@ public class Board : MonoBehaviour
         {
             if (_bolts[i] == NewBolt)
             {
-                _addBolt = true;
+                _addBolt = false;
                 break;
             }
             else if (_bolts[i] != NewBolt && i == value)
@@ -82,19 +86,71 @@ public class Board : MonoBehaviour
 
     private IEnumerator CheckBolts(GameObject BoltToRemove)
     {
-        for (int i = 0; i < _bolts.Length; i++)
+        int bolts = 0;
+        bool sameBoard = false;
+
+        _boardRigidbody.isKinematic = true;
+        _boardRigidbody.useGravity = false;
+        _boadrBoxCollider.isTrigger = true;
+
+        if (_freeHoles.CheckHoles() != null && _did)
         {
-            if (_bolts[i] == BoltToRemove)
+            yield return new WaitForSeconds(0.15f);
+            _did = false;
+            _canScrewNextBolt = false;
+            _boltGlobalScript.SetNextBoltMoveFlag(false);
+
+            for (int i = 0; i < _bolts.Length; i++)
             {
-                if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
+                if (_bolts[i] == BoltToRemove)
                 {
-                    _bolts[i] = null;
+                    if (_addBolt || !_addBolt || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInCube() || _freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
+                    {
+                        if (_freeHoles.CheckHoles().GetComponent<Hole>().SetBoltInBoard())
+                        {
+                            if (_bolts[i].GetComponent<BoltMovement>().ReturnTwoBoards(gameObject) == false)
+                            {
+                                _boards = _freeHoles.CheckHoles().GetComponent<Hole>().GetSameBoards();
+
+                                for (int j = 0; j < _boards.Length; j++)
+                                {
+                                    if (_boards[j] == gameObject)
+                                    {
+                                        sameBoard = true;
+                                    }
+                                }
+
+                                if (!sameBoard)
+                                {
+                                    _bolts[i] = null;
+                                }
+                            }
+                            else
+                            {
+                                _boards = _freeHoles.CheckHoles().GetComponent<Hole>().GetSameBoards();
+
+                                for (int j = 0; j < _boards.Length; j++)
+                                {
+                                    if (_boards[j] == gameObject)
+                                    {
+                                        sameBoard = true;
+                                    }
+                                }
+
+                                if (!sameBoard)
+                                {
+                                    _bolts[i] = null;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            _bolts[i] = null;
+                        }
+                    }
                 }
             }
-        }
 
-        if (_freeHoles.CheckHoles() != null)
-        {
             if (_lastBolt != null && _boltToRemove == null)
             {
                 _hingeJoints = _lastBolt.gameObject.GetComponents<HingeJoint>();
@@ -107,7 +163,7 @@ public class Board : MonoBehaviour
                     {
                         _newHole = false;
                         _holes[i].GetComponent<Hole>().SetOldHole();
-                        _boards = checkedHole.GetComponent<Hole>().GetSameBoards();
+                        // _boards = checkedHole.GetComponent<Hole>().GetSameBoards();
                     }
                 }
 
@@ -117,7 +173,6 @@ public class Board : MonoBehaviour
                     {
                         if (_boards[i].GetComponent<Board>().ReturnHole() != true)
                         {
-                            _boardsCount++;
                             _boards[i].GetComponent<Board>().DoThat();
                         }
                     }
@@ -125,15 +180,39 @@ public class Board : MonoBehaviour
                     _canRemoveHinge = false;
                 }
 
-                if (_can == false)
+                if (bolts == 1 || bolts == 0)
                 {
+                    if (_can == false && !_haveChangedBolt || HowManyBoltsHaveBoard() == 0)
+                    {
+                        foreach (HingeJoint HingeJoint in _hingeJoints)
+                        {
+                            //_boardRigidbody.isKinematic = false;
+                            if (HingeJoint != _boardRigidbody)
+                            {
+                                //Destroy(HingeJoint);
+                            }
+
+                            if (_canRemoveBoard)
+                            {
+                                _canRemoveBoard = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _lastBolt.GetComponent<BoltController>().AdjustThePositionOfAnchor();
+                    }
+                }
+
+                if (_can == false && !_haveChangedBolt && _boltToRemove == _lastBolt || HowManyBoltsHaveBoard() == 0 && _isMoving)
+                {
+
                     foreach (HingeJoint HingeJoint in _hingeJoints)
                     {
-                        Destroy(HingeJoint);
+                        // Destroy(HingeJoint);
 
                         if (_canRemoveBoard)
                         {
-                            _UIOptions.RecoundBourds(1);
                             _canRemoveBoard = false;
                         }
                     }
@@ -144,16 +223,27 @@ public class Board : MonoBehaviour
                 }
             }
 
+            _boltToRemove = null;
+
+            //_boardRigidbody.isKinematic = false;
+
             if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
             {
-                _boltToRemove = null;
-
                 yield return new WaitForSeconds(_timeForMove);
+
+
+                if (HowManyBoltsHaveBoard() == 1)
+                {
+                    _boardRigidbody.constraints = RigidbodyConstraints.None;
+                    _boardRigidbody.isKinematic = false;
+                }
 
                 _newHole = true;
                 _canRemoveHinge = true;
-                _boardsCount = 0;
                 _can = false;
+                _did = true;
+                StartCoroutine(ScrewNextBolt());
+
 
                 foreach (GameObject Bolt in _bolts)
                 {
@@ -177,6 +267,7 @@ public class Board : MonoBehaviour
                 else if (_boltsCount > 1)
                 {
                     _boltsCount = _boltsCountOnTheStart;
+                    _boardRigidbody.isKinematic = true;
                 }
                 else if (_boltsCount < 1)
                 {
@@ -184,15 +275,25 @@ public class Board : MonoBehaviour
                 }
 
                 _addBolt = false;
+
+                _boadrBoxCollider.isTrigger = false;
+                _boardRigidbody.isKinematic = false;
+                _boardRigidbody.useGravity = true;
             }
         }
     }
 
-    private void AddPhysic()
+    public GameObject[] ReturnBoards()
+    {
+        return _boards;
+    }
+
+    public void AddPhysic()
     {
         _lastBolt.GetComponent<BoltController>().AddAnchors(_boardRigidbody);
         _boardRigidbody.constraints = RigidbodyConstraints.None;
         _boardRigidbody.freezeRotation = false;
+        _boardRigidbody.isKinematic = false;
 
         Vector3 center = _boadrBoxCollider.center;
         center.x += 0.01f;
@@ -206,31 +307,110 @@ public class Board : MonoBehaviour
 
     private void FindEmptyObjectsInRadius()
     {
-        Vector3 center = _boltToRemove.GetComponent<BoltController>().GetTransform().position;
-
-        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Hole");
-
-        Transform closestTransform = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (GameObject obj in allObjects)
+        if (_closestTransform == null && _boltMovePoint == null)
         {
-            float distance = Vector3.Distance(center, obj.transform.position);
+            Vector3 center = Vector3.zero;
 
-            if (distance < _radius)
+            if (_boltToRemove != null)
             {
-                if (distance < closestDistance)
+                center = _boltToRemove.GetComponent<BoltController>().GetTransform().position;
+            }
+
+            GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Hole");
+
+            float closestDistance = Mathf.Infinity;
+
+            foreach (GameObject obj in allObjects)
+            {
+                float distance = Vector3.Distance(center, obj.transform.position);
+
+                if (distance < _radius)
                 {
-                    closestDistance = Vector3.Distance(center, obj.GetComponent<Hole>().SetOffset().transform.position);
-                    closestTransform = obj.GetComponent<Hole>().SetOffset().transform;
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = Vector3.Distance(center, obj.GetComponent<Hole>().SetOffset().transform.position);
+                        _closestTransform = obj.GetComponent<Hole>().SetOffset().transform;
+                    }
                 }
+            }
+
+            if (_closestTransform != null)
+            {
+                _boltMovePoint = _closestTransform;
+            }
+            else
+            {
+                _boltMovePoint = null;
+            }
+        }
+    }
+
+    public bool FindBolts(GameObject bolt)
+    {
+        bool haveThatBolt = false;
+
+        for (int i = 0; i < _bolts.Length; i++)
+        {
+            if (_bolts[i] == bolt)
+            {
+                haveThatBolt = true;
             }
         }
 
-        if (closestTransform != null)
+        return haveThatBolt;
+    }
+
+    public bool HaveBolt()
+    {
+        int bolts = 0;
+        bool oneBolt = false;
+
+        for (int i = 0; i < _bolts.Length; i++)
         {
-            _boltMovePoint = closestTransform;
+            if (_bolts[i] != null)
+            {
+                bolts++;
+            }
         }
+
+        if (bolts < 1)
+        {
+            oneBolt = true;
+        }
+
+        return oneBolt;
+    }
+
+    public int HowManyBoltsHaveBoard()
+    {
+        int bolts = 0;
+
+        for (int i = 0; i < _bolts.Length; i++)
+        {
+            if (_bolts[i] != null)
+            {
+                bolts++;
+            }
+        }
+
+        return bolts;
+    }
+
+    public bool ReturnBoltsHingenJoint()
+    {
+        bool haveJoints = false;
+
+        if (_hingeJoints != null)
+        {
+            haveJoints = true;
+        }
+
+        return haveJoints;
+    }
+
+    public GameObject[] ReturnBolts()
+    {
+        return _bolts;
     }
 
     public GameObject FindClosestHoleToBolt(GameObject bolt)
@@ -251,7 +431,39 @@ public class Board : MonoBehaviour
             }
         }
 
-        Debug.Log(closestHole.gameObject.name);
+        return closestHole;
+    }
+
+    public GameObject FindClosestHoleToBoltOfEver(GameObject bolt)
+    {
+        GameObject closestHole = null;
+        float closestDistance = Mathf.Infinity;
+        Hole[] holes;
+        List<GameObject> holesObjects = new List<GameObject>();
+
+        holes = FindObjectsOfType<Hole>();
+
+        for (int i = 0; i < holes.Length; i++)
+        {
+            if (holes[i].SetBoltInBoard() == false)
+            {
+                holesObjects.Add(holes[i].gameObject);
+            }
+        }
+
+        for (int i = 0; i < holesObjects.Count; i++)
+        {
+            GameObject hole = holesObjects[i];
+
+            float distance = Vector3.Distance(bolt.transform.position, hole.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestHole = hole;
+            }
+        }
+
         return closestHole;
     }
 
@@ -262,9 +474,30 @@ public class Board : MonoBehaviour
         _isMoving = true;
     }
 
+    public void SetChangedBolt(bool Operator)
+    {
+        _haveChangedBolt = Operator;
+    }
+
+    public GameObject ReturnChangedBolt()
+    {
+        return _changedBolt;
+    }
+
+    public void LoadChangedBolt(GameObject Bolt)
+    {
+        _changedBolt = Bolt;
+    }
+
+    public bool HaveChangedBolt()
+    {
+        return _haveChangedBolt;
+    }
+
     public void CanUseAnyBolt()
     {
         canUseBolt = true;
+        _boltGlobalScript.SetClickOnHole(true);
     }
 
     public void SetBoltToRemuveNull()
@@ -277,11 +510,6 @@ public class Board : MonoBehaviour
         _can = true;
     }
 
-    public GameObject ReturneBolt()
-    {
-        return _boltToRemove;
-    }
-
     public void SetOldHole()
     {
         _newHole = false;
@@ -292,22 +520,107 @@ public class Board : MonoBehaviour
         return _newHole;
     }
 
-    private void BoltMoveToPoint()
+    public void BoltMoveToPoint()
     {
-        _boltToRemove.GetComponent<BoltMovement>().StayBoltCollider();
-
-        if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.2f)
+        if (_boltToRemove != null)
         {
-            _isMoving = false;
+            _boltToRemove.GetComponent<BoltMovement>().StayBoltCollider();
         }
-        else
+
+        if (_boltMovePoint != null)
         {
-            _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
+            float distance = Vector3.Distance(_boltTransform.position, _boltMovePoint.position);
+
+            if (distance < 1.3f)
+            {
+                if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 1f)
+                {
+                    StopCoroutine(FindHole());
+                    _isMoving = false;
+                    _closestTransform = null;
+                    _boltMovePoint = null;
+                    _boltScrewing = false;
+                }
+                else
+                {
+                    _boltScrewing = true;
+                    _boltTransform.position = Vector3.MoveTowards(_boltTransform.position, _boltMovePoint.position, _moveSpeed * Time.deltaTime);
+                }
+            }
+            else
+            {
+                _closestTransform = null;
+                StartCoroutine(FindHole());
+            }
         }
 
         if (_lastBolt != null)
         {
             _lastBolt.GetComponent<BoltController>().AdjustThePositionOfAnchor();
+        }
+        else if (_changedBolt != null)
+        {
+            _changedBolt.GetComponent<BoltController>().AdjustThePositionOfAnchor();
+        }
+    }
+
+    public bool ReturnBoltScrewInfo()
+    {
+        return _boltScrewing;
+    }
+
+    public bool ReturnDid()
+    {
+        return _canScrewNextBolt;
+    }
+
+    private IEnumerator ScrewNextBolt()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        _boltGlobalScript.SetNextBoltMoveFlag(true);
+        _canScrewNextBolt = true;
+        StopCoroutine(ScrewNextBolt());
+    }
+
+    private IEnumerator AddAnchors()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        Board[] boards = _lastBolt.GetComponent<BoltController>().ReturnBoards();
+        HingeJoint[] joints = _lastBolt.GetComponents<HingeJoint>();
+
+        yield return new WaitForSeconds(0.02f);
+
+        for (int e = 0; e < boards.Length; e++)
+        {
+            if (joints.Length < boards.Length)
+            {
+                _lastBolt.GetComponent<BoltController>().AddAnchors(boards[e].gameObject.GetComponent<Rigidbody>());
+            }
+        }
+
+        StopCoroutine(AddAnchors());
+    }
+
+    private IEnumerator FindHole()
+    {
+        FindEmptyObjectsInRadius();
+
+        yield return new WaitForSeconds(0.1f);
+
+        BoltMoveToPoint();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_deadBoard)
+        {
+            if (other.gameObject.CompareTag("MainCamera"))
+            {
+                _UIOptions.RecoundBourds(1);
+                _deadBoard = true;
+            }
         }
     }
 }

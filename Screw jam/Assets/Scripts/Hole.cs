@@ -6,13 +6,23 @@ using UnityEngine;
 public class Hole : MonoBehaviour
 {
     [SerializeField] private bool _holeInCube = false, _holeInPanel = false, _holeInBoard = false;
+    [SerializeField] private BoltGlobalScript _boltGlobalScript;
     [SerializeField] private Transform _endOffsetForBolt, _startOfHole, _endOfHole;
+    [SerializeField] private Board _board;
 
     [SerializeField] private bool _useThisHole = false, _canScrewing = false;
+    [SerializeField] private bool _haveBolt = false;
     private float _radius = 0.1f;
 
     [SerializeField] private GameObject[] _sameBoards;
+    [SerializeField] private Collider _holeCollider;
+
     private List<GameObject> _boardsList = new List<GameObject>();
+
+    private void Start()
+    {
+        _boltGlobalScript = FindObjectOfType<BoltGlobalScript>();
+    }
 
     public bool CanScrewing()
     {
@@ -49,12 +59,10 @@ public class Hole : MonoBehaviour
                     }
                 }
 
-                if (HolesInBoard == Boards && HolesInCube > 0 && CheckOnTop() == true)
+                if (HolesInBoard == Boards && HolesInCube > 0 && CheckOnTop() == true && HolesInBoard + HolesInCube == CheckForScrewing())
                 {
                     _canScrewing = true;
                 }
-
-                Debug.Log("Holes In Board: " + HolesInBoard + ", Holes In Cube: " + HolesInCube + ", Boards: " + Boards);
             }
         }
         else if (SetBoltInCube() == true)
@@ -70,6 +78,26 @@ public class Hole : MonoBehaviour
         }
 
         return _canScrewing;
+    }
+
+    private int CheckForScrewing()
+    {
+        int holes = 0;
+
+        Vector3 direction = _endOfHole.position - _startOfHole.position;
+        float maxDistance = direction.magnitude;
+
+        RaycastHit[] hits = Physics.RaycastAll(_startOfHole.position, direction, maxDistance);
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.gameObject.CompareTag("Hole"))
+            {
+                holes++;
+            }
+        }
+
+        return holes;
     }
 
     private bool CheckOnTop()
@@ -91,8 +119,38 @@ public class Hole : MonoBehaviour
 
     public void TouchHole()
     {
-        _useThisHole = true;
-        StartCoroutine(SetHoleActiveFalse());
+        if (CanScrewing() && _boltGlobalScript.CanClickOnHole())
+        {
+            if (SetBoltInBoard() == true)
+            {
+                if (CheckBoltsInCollider(_holeCollider) == false)
+                {
+                    _useThisHole = true;
+                    StartCoroutine(SetHoleActiveFalse());
+                }
+            }
+            else
+            {
+                _useThisHole = true;
+                StartCoroutine(SetHoleActiveFalse());
+            }
+        }
+        _haveBolt = false;
+    }
+
+    private bool CheckBoltsInCollider(Collider triggerCollider)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(triggerCollider.bounds.center, triggerCollider.bounds.extents);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.GetComponent<BoltMovement>() != null)
+            {
+                _haveBolt = true;
+            }
+        }
+
+        return _haveBolt;
     }
 
     public bool CheckForUse()
@@ -154,9 +212,14 @@ public class Hole : MonoBehaviour
         return _sameBoards;
     }
 
+    public Board ReturnBoard()
+    {
+        return _board;
+    }
+
     private IEnumerator SetHoleActiveFalse()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.7f);
 
         _useThisHole = false;
         _canScrewing = false;

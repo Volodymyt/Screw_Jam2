@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 958366127840711693}
   - component: {fileID: 3187830992351879028}
   - component: {fileID: 2620516508758953819}
-  - component: {fileID: 7856023187618512094}
+  - component: {fileID: 4789513046340191015}
   m_Layer: 7
   m_Name: Bolt Object
   m_TagString: Bolt
@@ -106,6 +106,9 @@ MonoBehaviour:
   _boards: []
   _startOfBolt: {fileID: 1388627468264143445}
   _endOfBolt: {fileID: 6423270366697747253}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &958366127840711693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,17 +121,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ef0db94a82e1c4ea61067114a58ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
-  _timeForMove: 0.9
+  _speed: 4
+  _timeForMove: 2
   _screwingSpeed: 35
   _board: {fileID: 0}
+  _oldBoard: {fileID: 0}
   _controller: {fileID: 8365377848027126508}
   _boltTouch: {fileID: 3187830992351879028}
+  _capsuleCollider: {fileID: 4789513046340191015}
   _transform: {fileID: 5802397014818845269}
   _boltGloblScript: {fileID: 0}
   _canMove: 0
   _canScrew: 0
   _can: 0
+  _meinCamera: {fileID: 0}
+  _cube: {fileID: 0}
+  _hole: {fileID: 0}
 --- !u!114 &3187830992351879028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +173,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -173,8 +181,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!136 &7856023187618512094
-CapsuleCollider:
+--- !u!65 &4789513046340191015
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -183,7 +191,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -191,11 +199,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000002
-  m_Height: 2.0000005
-  m_Direction: 1
-  m_Center: {x: -0.0000004172325, y: 0.00000071525574, z: -0.00000009685756}
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2.3725662, z: 1.0000002}
+  m_Center: {x: 0.00000003987893, y: -0.1862823, z: -0.00000031903147}
 --- !u!1 &961765756759579158
 GameObject:
   m_ObjectHideFlags: 0

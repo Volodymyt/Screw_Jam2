@@ -57,11 +57,11 @@ public class UIOptions : MonoBehaviour
 
         if (PlayerPrefs.GetInt("MaxLevel1") == 1)
         {
-            _loadLevelRandom = true;
+            //_loadLevelRandom = true;
         }
         else
         {
-            _loadLevelRandom = false;
+            //_loadLevelRandom = false;
         }
 
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
@@ -212,7 +212,7 @@ public class UIOptions : MonoBehaviour
 
     private IEnumerator LoadWinPanel()
     {
-        yield return new WaitForSeconds(0.9f);
+        yield return new WaitForSeconds(0.2f);
 
         _winPanle.SetActive(true);
         Time.timeScale = 0;

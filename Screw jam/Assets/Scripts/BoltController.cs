@@ -5,6 +5,7 @@ public class BoltController : MonoBehaviour
 {
     [SerializeField] private Board[] _boards;
     [SerializeField] private Transform _startOfBolt, _endOfBolt;
+    [SerializeField] private LayerMask _layerMask;
 
     private HingeJoint[] _hingeJoints;
     private List<Board> _boardsList = new List<Board>();
@@ -21,18 +22,13 @@ public class BoltController : MonoBehaviour
 
     public void AddBoards()
     {
-        RaycastHit[] Boards = Physics.RaycastAll(_startOfBolt.position, _endOfBolt.position - _startOfBolt.position, Vector3.Distance(_startOfBolt.position, _endOfBolt.position));
+        RaycastHit[] Boards = Physics.RaycastAll(_startOfBolt.position, _endOfBolt.position - _startOfBolt.position, Vector3.Distance(_startOfBolt.position, _endOfBolt.position), _layerMask);
 
         _boardsList.Clear();
 
         for (int i = 0; i < Boards.Length; i++)
         {
-            Board BoardComponent = Boards[i].collider.gameObject.GetComponent<Board>();
-
-            if (BoardComponent != null)
-            {
-                _boardsList.Add(BoardComponent);
-            }
+            _boardsList.Add(Boards[i].collider.gameObject.GetComponent<Board>());
         }
 
         _boards = _boardsList.ToArray();
@@ -42,38 +38,36 @@ public class BoltController : MonoBehaviour
     {
         for (int i = 0; i < _boards.Length; i++)
         {
-            _boards[i].CheckBoltToRemove(this.gameObject);
+            _boards[i].CheckBoltToRemove(gameObject);
         }
     }
 
     public void AdjustThePositionOfAnchor()
     {
-        if (gameObject.GetComponents<HingeJoint>() != null)
+        Vector3 initialAnchorPosition;
+        Vector3 initialObjectPosition;
+        bool _canSetHingeJoints = true;
+
+        if (_canSetHingeJoints)
         {
-            Vector3 initialAnchorPosition;
-            Vector3 initialObjectPosition;
-            bool _canSetHingeJoints = true;
+            _hingeJoints = gameObject.GetComponents<HingeJoint>();
+            _canSetHingeJoints = false;
+        }
 
-            if (_canSetHingeJoints)
+
+        for (int i = 0; i < _boards.Length + 100; i++)
+        {
+            if (i < Mathf.Max(_hingeJoints.Length))
             {
-                _hingeJoints = gameObject.GetComponents<HingeJoint>();
-                _canSetHingeJoints = false;
-            }
+                initialAnchorPosition = _hingeJoints[i].anchor;
+                initialObjectPosition = transform.position;
 
-            for (int i = 0; i < _boards.Length + 3; i++)
-            {
-                if (i < Mathf.Max(_hingeJoints.Length))
-                {
-                    initialAnchorPosition = _hingeJoints[i].anchor;
-                    initialObjectPosition = transform.position;
+                float zOffset = transform.position.z - initialObjectPosition.z;
 
-                    float zOffset = transform.position.z - initialObjectPosition.z;
+                Vector3 newAnchorPosition = initialAnchorPosition;
+                newAnchorPosition.z -= zOffset;
 
-                    Vector3 newAnchorPosition = initialAnchorPosition;
-                    newAnchorPosition.z -= zOffset;
-
-                    _hingeJoints[i].anchor = newAnchorPosition;
-                }
+                _hingeJoints[i].anchor = newAnchorPosition;
             }
         }
     }
@@ -99,5 +93,10 @@ public class BoltController : MonoBehaviour
         {
             _boards[i].AddBolt(this.gameObject);
         }
+    }
+
+    public Board[] ReturnBoards()
+    {
+        return _boards;
     }
 }
