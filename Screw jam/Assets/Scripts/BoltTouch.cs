@@ -71,16 +71,15 @@ public class BoltTouch : MonoBehaviour
 
     private IEnumerator MoveBoltBack()
     {
-        _boltGlobalScript.ReturnActiveBolt().GetComponent<BoltMovement>().MoveBack(false);
+        yield return new WaitForSeconds(0.0f);
 
-        yield return new WaitForSeconds(0.00000001f);
+        _boltGlobalScript.ReturnActiveBolt().GetComponent<BoltMovement>().MoveBack(false);
 
         _boltGlobalScript.SetBoltMoveActiveFalse();
         _board.CanUseAnyBolt();
         _boltGlobalScript.SetActiveBolt(gameObject);
         _board.BoltsCheking(gameObject, _transform);
         _bolt.CheckingActiveBolt();
-
     }
 
     public Board ReturnBoard()

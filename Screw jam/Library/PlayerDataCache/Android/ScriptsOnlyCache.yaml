@@ -75,6 +75,24 @@ ScriptsOnlyBuild:
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
   - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
     fullTypeName: Hole
     methodName: TouchHole
   - assembly: Assembly-CSharp
@@ -201,26 +219,8 @@ ScriptsOnlyBuild:
     fullTypeName: UIOptions
     methodName: OpenPanel
   - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
   sceneClasses:
     Assets/Scenes/Level 2.unity:
     - Class: 1
@@ -804,7 +804,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: 72a4c604b5a0a1e1180832602d3fa7a6
+      Hash: f620cf5360de635ed9a3ab3786689d00
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltMovement

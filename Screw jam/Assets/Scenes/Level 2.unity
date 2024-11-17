@@ -238,6 +238,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1663461660}
     m_Modifications:
+    - target: {fileID: 900999998628500770, guid: d7d3e4e94dc0f1e418c8287c88e5b568, type: 3}
+      propertyPath: m_Name
+      value: Bolt Object 7
+      objectReference: {fileID: 0}
     - target: {fileID: 958366127840711693, guid: d7d3e4e94dc0f1e418c8287c88e5b568, type: 3}
       propertyPath: _board
       value: 
@@ -332,6 +336,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1663461660}
     m_Modifications:
+    - target: {fileID: 900999998628500770, guid: d7d3e4e94dc0f1e418c8287c88e5b568, type: 3}
+      propertyPath: m_Name
+      value: Bolt Object 6
+      objectReference: {fileID: 0}
     - target: {fileID: 958366127840711693, guid: d7d3e4e94dc0f1e418c8287c88e5b568, type: 3}
       propertyPath: _board
       value: 
@@ -672,7 +680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1079153809613358575, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -109.70001
+      value: -109.69995
       objectReference: {fileID: 0}
     - target: {fileID: 1084853045661207770, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -720,12 +728,20 @@ PrefabInstance:
       objectReference: {fileID: 1821540705}
     - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _timeForMove
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2069357751676528772, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _timeForMove
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2647178910129062009, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _end
+      value: 
+      objectReference: {fileID: 1560958893}
+    - target: {fileID: 2647178910129062009, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _start
+      value: 
+      objectReference: {fileID: 1674457983}
     - target: {fileID: 3307629045294335006, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.009
@@ -760,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 1136820732}
     - target: {fileID: 3510626132198634533, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _timeForMove
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3591752314140012596, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -838,6 +854,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 7.5999756
       objectReference: {fileID: 0}
+    - target: {fileID: 5686151062765042413, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: m_Name
+      value: Bolt Object 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5725650896562109421, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: rotationSpeed
       value: 5
@@ -845,6 +865,10 @@ PrefabInstance:
     - target: {fileID: 5822967513268629187, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _loadLevelRandom
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108585431867851583, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: m_Name
+      value: Bolt Object 3
       objectReference: {fileID: 0}
     - target: {fileID: 6768920977524365838, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_RootOrder
@@ -900,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 2007084745}
     - target: {fileID: 7656645637581758291, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _timeForMove
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8554334220153476652, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1030,6 +1054,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 527314985}
     m_Modifications:
+    - target: {fileID: 900999998628500770, guid: d7d3e4e94dc0f1e418c8287c88e5b568, type: 3}
+      propertyPath: m_Name
+      value: Bolt Object4
+      objectReference: {fileID: 0}
     - target: {fileID: 958366127840711693, guid: d7d3e4e94dc0f1e418c8287c88e5b568, type: 3}
       propertyPath: _board
       value: 
@@ -1272,6 +1300,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1716847282161379230, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
   m_PrefabInstance: {fileID: 982506125}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1560958893 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8130243650457151297, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+  m_PrefabInstance: {fileID: 982506125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1642144381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1361,6 +1394,11 @@ Transform:
 --- !u!4 &1663461660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8583560097881747304, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+  m_PrefabInstance: {fileID: 982506125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1674457983 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4230290211859050017, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
   m_PrefabInstance: {fileID: 982506125}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1713669510

@@ -88,6 +88,7 @@ public class Board : MonoBehaviour
     {
         int bolts = 0;
         bool sameBoard = false;
+        bool canscrew = false;
 
         _boardRigidbody.isKinematic = true;
         _boardRigidbody.useGravity = false;
@@ -95,10 +96,15 @@ public class Board : MonoBehaviour
 
         if (_freeHoles.CheckHoles() != null && _did)
         {
-            yield return new WaitForSeconds(0.15f);
-            _did = false;
-            _canScrewNextBolt = false;
             _boltGlobalScript.SetNextBoltMoveFlag(false);
+            yield return new WaitForSeconds(0.2f);
+            if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
+            {
+                canscrew = _freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing();
+            }
+
+            _canScrewNextBolt = false;
+            _did = false;
 
             for (int i = 0; i < _bolts.Length; i++)
             {
@@ -227,7 +233,7 @@ public class Board : MonoBehaviour
 
             //_boardRigidbody.isKinematic = false;
 
-            if (_freeHoles.CheckHoles().GetComponent<Hole>().CanScrewing() == true)
+            if (canscrew == true)
             {
                 yield return new WaitForSeconds(_timeForMove);
 
