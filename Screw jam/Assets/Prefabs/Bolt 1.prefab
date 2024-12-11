@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ef0db94a82e1c4ea61067114a58ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3.5
+  _speed: 5
   _timeForMove: 1
   _screwingSpeed: 10
   _board: {fileID: 0}
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boltGlobalScript: {fileID: 0}
   _boardObject: {fileID: 0}
+  _button: {fileID: 5272763524909478280}
   _board: {fileID: 0}
   _bolt: {fileID: 958366127840711693}
   _transform: {fileID: 5802397014818845269}
@@ -162,7 +163,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900999998628500770}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a5bdd7e434e9d8c4c9eb58b8a5dd1a02, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

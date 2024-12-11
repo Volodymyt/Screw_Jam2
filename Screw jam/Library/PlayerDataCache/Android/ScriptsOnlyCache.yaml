@@ -75,18 +75,6 @@ ScriptsOnlyBuild:
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
   - assembly: Assembly-CSharp
-    fullTypeName: BoltTouch
-    methodName: BoltButtonTouch
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
-    fullTypeName: Hole
-    methodName: TouchHole
-  - assembly: Assembly-CSharp
     fullTypeName: Hole
     methodName: TouchHole
   - assembly: Assembly-CSharp
@@ -219,6 +207,18 @@ ScriptsOnlyBuild:
     fullTypeName: UIOptions
     methodName: OpenPanel
   - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
+    fullTypeName: BoltTouch
+    methodName: BoltButtonTouch
+  - assembly: Assembly-CSharp
+    fullTypeName: Hole
+    methodName: TouchHole
+  - assembly: Assembly-CSharp
     fullTypeName: BoltTouch
     methodName: BoltButtonTouch
   sceneClasses:
@@ -306,6 +306,8 @@ ScriptsOnlyBuild:
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 136
       Script: {instanceID: 0}
@@ -510,7 +512,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: f35486713430b747bda2db0f921177e6
+      Hash: 4c06ef46708af460f176491e3025f632
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BoltGlobalScript

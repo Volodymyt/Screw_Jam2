@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 
 public class BoltTouch : MonoBehaviour
@@ -15,8 +16,6 @@ public class BoltTouch : MonoBehaviour
     {
         _boltGlobalScript = FindObjectOfType<BoltGlobalScript>();
     }
-
-
     public void BoltButtonTouch()
     {
         if (!canClick)
@@ -24,15 +23,23 @@ public class BoltTouch : MonoBehaviour
             return;
         }
 
-        if (!_board.ReturnDid())
+       /* if (!_board.ReturnDid())
         {
             return;
-        }
+        }*/
 
         if (!_boltGlobalScript.CheckNextBoltMovement())
         {
             return;
         }
+
+        if (!_boltGlobalScript.ReturnChangeBolt())
+        {
+            return;
+        }
+
+        _boltGlobalScript.SetChangeBolt(false);
+        _boltGlobalScript.SetClickOnHole(false);
 
         StartCoroutine(ClickCooldown());
 
@@ -49,6 +56,8 @@ public class BoltTouch : MonoBehaviour
             _boltGlobalScript.ReturnActiveBolt().GetComponent<BoltMovement>().MoveBack(true);
             _boltGlobalScript.SetActiveBolt(null);
             _bolt.SetCanMove(false);
+            _boltGlobalScript.SetChangeBolt(true);
+
             // _board.SetCan(false);
         }
         else

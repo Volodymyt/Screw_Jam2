@@ -29,6 +29,7 @@ public class Hole : MonoBehaviour
         int HolesInBoard = 0;
         int HolesInCube = 0;
         int Boards = 0;
+        bool Bolt = false;
 
         if (SetBoltInBoard() == true)
         {
@@ -59,7 +60,15 @@ public class Hole : MonoBehaviour
                     }
                 }
 
-                if (HolesInBoard == Boards && HolesInCube > 0 && CheckOnTop() == true && HolesInBoard + HolesInCube == CheckForScrewing())
+                for (int i = 0; i < Objects.Length; i++)
+                {
+                    if (Objects[i].collider.GetComponent<BoltMovement>() != null)
+                    {
+                        Bolt = true;
+                    }
+                }
+
+                if (HolesInBoard == Boards && HolesInCube > 0 && CheckOnTop() == true && HolesInBoard + HolesInCube == CheckForScrewing() && Bolt == false)
                 {
                     _canScrewing = true;
                 }

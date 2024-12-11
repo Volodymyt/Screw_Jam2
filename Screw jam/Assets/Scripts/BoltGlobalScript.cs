@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BoltGlobalScript : MonoBehaviour
 {
-    [SerializeField] private bool _moving = true, _canMoveNextBolt = true, _canClickOnHole = true;
+    [SerializeField] private bool _moving = true, _canMoveNextBolt = true, _canClickOnHole = true, _canChangeBolt = true;
     [SerializeField] private GameObject _activeBolt, _oldHole;
 
     public GameObject ReturnActiveBolt()
@@ -13,6 +13,16 @@ public class BoltGlobalScript : MonoBehaviour
     public void SetActiveBolt(GameObject NewBolt)
     {
         _activeBolt = NewBolt;
+    }
+
+    public void SetChangeBolt(bool Operator)
+    {
+        _canChangeBolt = Operator;
+    }
+
+    public bool ReturnChangeBolt()
+    {
+        return _canChangeBolt;
     }
 
     public bool CheckBolts()

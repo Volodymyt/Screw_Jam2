@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BoltMovement : MonoBehaviour
@@ -190,31 +189,34 @@ public class BoltMovement : MonoBehaviour
             }
         }
 
-        if (_board.HowManyBoltsHaveBoard() == 2 && _board.ReturnBoltsHingenJoint() && _board.HaveChangedBolt())
-        {
-            Debug.Log("1");
 
-            StartCoroutine(AddManyAnchores());
-        }
-        else if (_board.HowManyBoltsHaveBoard() == 1 || _board.HowManyBoltsHaveBoard() == 2)
-        {
-            Debug.Log("2");
+        //StartCoroutine(LoadAnchores());
 
-            StartCoroutine(AddAachores());
-        }
-        else
-        {
-            Board[] boards = _controller.ReturnBoards();
+        /* if (_board.HowManyBoltsHaveBoard() == 2 && _board.ReturnBoltsHingenJoint() && _board.HaveChangedBolt())
+         {
+             Debug.Log("1");
 
-            for (int i = 0; i < boards.Length; i++)
-            {
-                if (boards[i].HowManyBoltsHaveBoard() == 1 || boards[i].HowManyBoltsHaveBoard() == 2)
-                {
-                    Debug.Log("3");
-                    StartCoroutine(AddAachor(boards[i]));
-                }
-            }
-        }
+             StartCoroutine(AddManyAnchores());
+         }
+         else if (_board.HowManyBoltsHaveBoard() == 1 || _board.HowManyBoltsHaveBoard() == 2)
+         {
+             Debug.Log("2");
+
+             StartCoroutine(AddAachores());
+         }
+         else
+         {
+             Board[] boards = _controller.ReturnBoards();
+
+             for (int i = 0; i < boards.Length; i++)
+             {
+                 if (boards[i].HowManyBoltsHaveBoard() == 1 || boards[i].HowManyBoltsHaveBoard() == 2)
+                 {
+                     Debug.Log("3");
+                     StartCoroutine(AddAachor(boards[i]));
+                 }
+             }
+         }*/
 
         lerpTime += _speed * Time.deltaTime;
 
@@ -225,57 +227,68 @@ public class BoltMovement : MonoBehaviour
 
         _transform.position = _centerOfRotation.position + currentPosition;
 
-        if (lerpTime >= 0.5f)
+        if (lerpTime >= 1f)
         {
             lerpTime = 0f;
+            _transform.position = Hole.transform.position;
+            _canScrew = true;
+            _canMove = false;
         }
 
         _transform.rotation = Hole.transform.rotation;
 
-        if (Vector3.Distance(_transform.position, EndOffsetVector) < 1.1f)
+        if (_canScrew && Vector3.Distance(_transform.position, Hole.transform.position) < 0.1f)
         {
-            _transform.position = Hole.transform.position;
+            _boltGloblScript.SetBoltMoveActiveTrue();
+            _boltGloblScript.SetOldHole(_hole);
 
-            _canScrew = true;
-            _canMove = false;
-            lerpTime = 0f;
-        }
-        else
-        {
-            _capsuleCollider.isTrigger = true;
+            lerpTime = 0;
+            _can = false;
+            _canScrew = false;
+            _controller.AddBoards();
+            _endOffset = null;
+            _boltCollider.isTrigger = false;
+
+            StartCoroutine(DoBoardKinematicFalse(Hole));
+            StartCoroutine(DoBoltTriggerFalse());
+            StartCoroutine(Wait(0.6f));
+            StartCoroutine(LoadAnchores());
         }
 
-        if (_canScrew)
+    }
+
+    private IEnumerator LoadAnchores()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        Board[] boards = _controller.ReturnBoards();
+
+        if (gameObject.GetComponents<HingeJoint>().Length < boards.Length)
         {
-            if (Vector3.Distance(_transform.position, Hole.transform.position) < 0.1f)
+            for (int i = 0; i < boards.Length; i++)
             {
-                if (_canScrew == true)
-                {
-                    _boltGloblScript.SetBoltMoveActiveTrue();
-                    _boltGloblScript.SetOldHole(_hole);
-                }
-
-                lerpTime = 0;
-                _can = false;
-                _canScrew = false;
-                _controller.AddBoards();
-                _endOffset = null;
-
-                StartCoroutine(DoBoardKinematicFalse(Hole));
-                StartCoroutine(DoBoltTriggerFalse());
-
-                StartCoroutine(Wait());
+                gameObject.GetComponent<BoxCollider>().isTrigger = true;
+                gameObject.GetComponent<BoltController>().AddAnchors(boards[i].GetComponent<Rigidbody>());
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                gameObject.GetComponent<BoxCollider>().isTrigger = false;
             }
         }
     }
 
-    private IEnumerator Wait()
+    private IEnumerator Wait(float Time)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(Time);
 
         GameObject[] bolts = _board.ReturnBolts();
         Board[] controllerBoards = null;
         int value = 0;
+
+        HingeJoint[] anchores = gameObject.GetComponents<HingeJoint>();
+
+        for (int i = 0; i < anchores.Length; i++)
+        {
+            Destroy(anchores[i]);
+        }
 
         for (int i = 0; i < bolts.Length; i++)
         {
@@ -287,17 +300,14 @@ public class BoltMovement : MonoBehaviour
 
                 foreach (HingeJoint joint in joints)
                 {
-                    if (_board.HowManyBoltsHaveBoard() != 1 && _board != _oldBoard)
-                    {
-                        Destroy(joint);
-                    }
-                    else if (_board != _oldBoard)
+                    if (_board != _oldBoard)
                     {
                         for (int j = 0; j < controllerBoards.Length; j++)
                         {
-                            if (value >= controllerBoards.Length)
+                            if (value > controllerBoards.Length)
                             {
                                 Destroy(joint);
+                                value = 0;
                             }
 
                             if (joint.connectedBody != controllerBoards[j].GetComponent<Rigidbody>())
@@ -345,13 +355,15 @@ public class BoltMovement : MonoBehaviour
 
                     foreach (HingeJoint duplicate in duplicateJoints)
                     {
-                        Destroy(duplicate);
+                        //Debug.Log(duplicate.connectedBody.gameObject.name);
+
+                        // Destroy(duplicate);
                     }
                 }
             }
         }
 
-        StopCoroutine(Wait());
+        StopCoroutine(Wait(0.1f));
     }
 
     public void StayBoltCollider()
@@ -377,6 +389,8 @@ public class BoltMovement : MonoBehaviour
         Vector3 newCenter;
 
         _boltCollider = gameObject.GetComponent<BoxCollider>();
+
+        _boltCollider.isTrigger = true;
 
         newCenter = _boltCollider.center;
         newCenter.y = 0;
@@ -592,6 +606,15 @@ public class BoltMovement : MonoBehaviour
                             boltObject.GetComponent<BoltController>().AddAnchors(controllerBoards[j].gameObject.GetComponent<Rigidbody>());
                             boltObject.GetComponent<Rigidbody>().isKinematic = true;
                             boltObject.GetComponent<BoxCollider>().isTrigger = false;
+
+                            if (_hole.GetComponent<Hole>().SetBoltInBoard())
+                            {
+                                var boltObject2 = gameObject;
+                                boltObject2.GetComponent<BoxCollider>().isTrigger = true;
+                                boltObject2.GetComponent<BoltController>().AddAnchors(controllerBoards[j].gameObject.GetComponent<Rigidbody>());
+                                boltObject2.GetComponent<Rigidbody>().isKinematic = true;
+                                boltObject2.GetComponent<BoxCollider>().isTrigger = false;
+                            }
                         }
                     }
                 }
@@ -607,7 +630,13 @@ public class BoltMovement : MonoBehaviour
                                 gameObject.GetComponent<BoltController>().AddAnchors(_board.GetComponent<Rigidbody>());
                                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
                                 gameObject.GetComponent<BoxCollider>().isTrigger = false;
-                                //Debug.Log(controllerBoards.Length + " / " + _board.gameObject.name);
+                            }
+                            else
+                            {
+                                gameObject.GetComponent<BoxCollider>().isTrigger = true;
+                                gameObject.GetComponent<BoltController>().AddAnchors(controllerBoards[0].GetComponent<Rigidbody>());
+                                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                                gameObject.GetComponent<BoxCollider>().isTrigger = false;
                             }
                         }
                     }
@@ -661,6 +690,10 @@ public class BoltMovement : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
+        _board.GetComponent<Rigidbody>().isKinematic = true;
+
+        yield return new WaitForSeconds(0.2f);
+
         _board.GetComponent<Rigidbody>().isKinematic = false;
 
         var boards = _controller.ReturnBoards();
@@ -674,7 +707,7 @@ public class BoltMovement : MonoBehaviour
                     var bolt = boards[j].ReturnChangedBolt();
                     HingeJoint[] hingeJoints = bolt.GetComponents<HingeJoint>();
 
-                    if (hingeJoints.Length < boards.Length + 1)
+                    if (hingeJoints.Length < boards.Length + 2)
                     {
                         bolt.GetComponent<BoltController>().AddAnchors(boards[j].GetComponent<Rigidbody>());
                         bolt.GetComponent<Rigidbody>().isKinematic = true;
@@ -726,7 +759,6 @@ public class BoltMovement : MonoBehaviour
         if (board.HaveChangedBolt())
         {
             var bolt = board.ReturnChangedBolt();
-            HingeJoint[] hingeJoints = bolt.GetComponents<HingeJoint>();
 
             if (FindBoardsInBolt(bolt))
             {
