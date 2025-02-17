@@ -1,5 +1,4 @@
 using System.Collections;
-using System.ComponentModel;
 using UnityEngine;
 
 public class BoltTouch : MonoBehaviour
@@ -9,6 +8,8 @@ public class BoltTouch : MonoBehaviour
     [SerializeField] private Board _board;
     [SerializeField] private BoltMovement _bolt;
     [SerializeField] private Transform _transform;
+    [SerializeField] private OpenNextStepInTutorial _openNextStepInTutorial;
+    [SerializeField] private bool _isTutorialLevel = false;
 
     private bool canClick = true;
 
@@ -23,11 +24,6 @@ public class BoltTouch : MonoBehaviour
             return;
         }
 
-       /* if (!_board.ReturnDid())
-        {
-            return;
-        }*/
-
         if (!_boltGlobalScript.CheckNextBoltMovement())
         {
             return;
@@ -36,6 +32,16 @@ public class BoltTouch : MonoBehaviour
         if (!_boltGlobalScript.ReturnChangeBolt())
         {
             return;
+        }
+
+        if (_isTutorialLevel && _openNextStepInTutorial == null)
+        {
+            return;
+        }
+
+        if (_isTutorialLevel)
+        {
+            StartCoroutine(OpenNextStep());
         }
 
         _boltGlobalScript.SetChangeBolt(false);
@@ -69,6 +75,20 @@ public class BoltTouch : MonoBehaviour
         {
             Handheld.Vibrate();
         }
+    }
+
+    public void IsNotTutorialLevel()
+    {
+        _isTutorialLevel = false;
+    }
+
+    private IEnumerator OpenNextStep()
+    {
+        yield return new WaitForSeconds(1f);
+
+        _openNextStepInTutorial.OpenNextStep(true);
+
+        StopCoroutine(OpenNextStep());
     }
 
     private IEnumerator ClickCooldown()

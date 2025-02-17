@@ -118,4 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b1537f9d3c7a54d972dd12681eaabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
+  rotationSpeed: 2.5
+  _openNextStepInTutorial: {fileID: 0}
+  _cubeStep: {fileID: 0}
+  _tutorialLevel: {fileID: 0}
+  _isTutorialLevel: 0

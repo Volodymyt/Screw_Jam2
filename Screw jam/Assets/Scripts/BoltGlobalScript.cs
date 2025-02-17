@@ -1,9 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BoltGlobalScript : MonoBehaviour
 {
     [SerializeField] private bool _moving = true, _canMoveNextBolt = true, _canClickOnHole = true, _canChangeBolt = true;
     [SerializeField] private GameObject _activeBolt, _oldHole;
+    [SerializeField] private Board[] _allBoards;
+
+    private void Start()
+    {
+        _allBoards = FindObjectsOfType<Board>();
+    }
+
+    public Board[] ReturnAllBoards()
+    {
+        return _allBoards;
+    }
 
     public GameObject ReturnActiveBolt()
     {

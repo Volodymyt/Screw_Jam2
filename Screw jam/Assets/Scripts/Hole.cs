@@ -12,12 +12,15 @@ public class Hole : MonoBehaviour
 
     [SerializeField] private bool _useThisHole = false, _canScrewing = false;
     [SerializeField] private bool _haveBolt = false;
-    private float _radius = 0.1f;
 
     [SerializeField] private GameObject[] _sameBoards;
     [SerializeField] private Collider _holeCollider;
 
+    [SerializeField] private OpenNextStepInTutorial _openNextStepInTutorial;
+    [SerializeField] private bool _isTutorialLevel = false;
+
     private List<GameObject> _boardsList = new List<GameObject>();
+    private float _radius = 0.1f;
 
     private void Start()
     {
@@ -96,7 +99,7 @@ public class Hole : MonoBehaviour
         Vector3 direction = _endOfHole.position - _startOfHole.position;
         float maxDistance = direction.magnitude;
 
-        RaycastHit[] hits = Physics.RaycastAll(_startOfHole.position, direction, maxDistance);
+        RaycastHit[] hits = Physics.CapsuleCastAll(_startOfHole.position, _endOfHole.position, 0.01f, _endOfHole.position - _startOfHole.position, Vector3.Distance(_startOfHole.position, _endOfHole.position));
 
         foreach (RaycastHit hit in hits)
         {
@@ -128,8 +131,15 @@ public class Hole : MonoBehaviour
 
     public void TouchHole()
     {
+        if (_isTutorialLevel && _openNextStepInTutorial == null)
+        {
+            return;
+        }
+
         if (CanScrewing() && _boltGlobalScript.CanClickOnHole())
         {
+            Debug.Log("ok");
+
             if (SetBoltInBoard() == true)
             {
                 if (CheckBoltsInCollider(_holeCollider) == false)
@@ -140,6 +150,8 @@ public class Hole : MonoBehaviour
             }
             else
             {
+                Debug.Log("ok");
+                StartCoroutine(OpenNextStep());
                 _useThisHole = true;
                 StartCoroutine(SetHoleActiveFalse());
             }
@@ -165,6 +177,11 @@ public class Hole : MonoBehaviour
     public bool CheckForUse()
     {
         return _useThisHole;
+    }
+
+    public void IsNotTutorialLevel()
+    {
+        _isTutorialLevel = false;
     }
 
     public bool SetBoltInCube()
@@ -226,11 +243,25 @@ public class Hole : MonoBehaviour
         return _board;
     }
 
+    private IEnumerator OpenNextStep()
+    {
+        yield return new WaitForSeconds(0.75f);
+
+        if (_isTutorialLevel)
+        {
+            _openNextStepInTutorial.OpenNextStep(true);
+        }
+
+        StopCoroutine(OpenNextStep());
+    }
+
     private IEnumerator SetHoleActiveFalse()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.4f);
 
         _useThisHole = false;
+
+        yield return new WaitForSeconds(0.4f);
         _canScrewing = false;
     }
 }

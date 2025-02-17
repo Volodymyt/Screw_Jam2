@@ -14,7 +14,7 @@ public class Board : MonoBehaviour
     [SerializeField] private bool _isMoving = true, _addBolt = false, _newHole = true;
     [SerializeField] private Board _board;
     [SerializeField] private bool _canRemoveBoard = true, _haveChangedBolt = false;
-    [SerializeField] private bool _can = true, _boltScrewing = false, _did = true, _canScrewNextBolt = true;
+    [SerializeField] private bool _can = true, _boltScrewing = false;
     [SerializeField] private GameObject _changedBolt;
 
     private UIOptions _UIOptions;
@@ -53,6 +53,7 @@ public class Board : MonoBehaviour
         }
         else if (canUseBolt == true && _freeHoles.CheckHoles() == null && _isMoving)
         {
+           // Debug.Log(gameObject.name);
             StartCoroutine(FindHole());
         }
     }
@@ -114,7 +115,7 @@ public class Board : MonoBehaviour
             if (HowManyBoltsHaveBoard() != 2 && HowManyBoltsHaveBoard() != 3)
             {
                 StartCoroutine(OnPhysic());
-                StartCoroutine(ScrewNextBolt(0.7f));
+                StartCoroutine(ScrewNextBolt(0.4f));
             }
         }
 
@@ -130,7 +131,6 @@ public class Board : MonoBehaviour
 
         if (_freeHoles.CheckHoles() != null)
         {
-            Debug.Log(gameObject.name);
             _boltGlobalScript.SetNextBoltMoveFlag(false);
 
             yield return new WaitForSeconds(0.1f);
@@ -148,9 +148,6 @@ public class Board : MonoBehaviour
                 _boardRigidbody.useGravity = true;
                 _boadrBoxCollider.isTrigger = false;
             }
-
-            _canScrewNextBolt = false;
-            _did = false;
 
             for (int i = 0; i < _bolts.Length; i++)
             {
@@ -215,7 +212,6 @@ public class Board : MonoBehaviour
                     {
                         _newHole = false;
                         _holes[i].GetComponent<Hole>().SetOldHole();
-                        // _boards = checkedHole.GetComponent<Hole>().GetSameBoards();
                     }
                 }
 
@@ -238,12 +234,6 @@ public class Board : MonoBehaviour
                     {
                         foreach (HingeJoint HingeJoint in _hingeJoints)
                         {
-                            //_boardRigidbody.isKinematic = false;
-                            if (HingeJoint != _boardRigidbody)
-                            {
-                                //Destroy(HingeJoint);
-                            }
-
                             if (_canRemoveBoard)
                             {
                                 _canRemoveBoard = false;
@@ -261,8 +251,6 @@ public class Board : MonoBehaviour
 
                     foreach (HingeJoint HingeJoint in _hingeJoints)
                     {
-                        // Destroy(HingeJoint);
-
                         if (_canRemoveBoard)
                         {
                             _canRemoveBoard = false;
@@ -280,11 +268,9 @@ public class Board : MonoBehaviour
 
             _boltToRemove = null;
 
-
-
             if (canscrew == true)
             {
-                StartCoroutine(ScrewNextBolt(0.45f));
+                StartCoroutine(ScrewNextBolt(0.1f));
 
                 yield return new WaitForSeconds(_timeForMove);
 
@@ -294,6 +280,11 @@ public class Board : MonoBehaviour
                     _boardRigidbody.isKinematic = false;
                     _boardRigidbody.useGravity = true;
                     _boadrBoxCollider.isTrigger = false;
+                }
+
+                for (int i = 0; i < _boltGlobalScript.ReturnAllBoards().Length; i++)
+                {
+                    _boltGlobalScript.ReturnAllBoards()[i].DoBoardTrigger(false);
                 }
 
                 if (HowManyBoltsHaveBoard() == 0)
@@ -306,8 +297,6 @@ public class Board : MonoBehaviour
                 _newHole = true;
                 _canRemoveHinge = true;
                 _can = false;
-                _did = true;
-
 
                 foreach (GameObject Bolt in _bolts)
                 {
@@ -343,6 +332,10 @@ public class Board : MonoBehaviour
                 if (HowManyBoltsHaveBoard() == 1 || HowManyBoltsHaveBoard() == 0)
                 {
                     _boardRigidbody.constraints = RigidbodyConstraints.None;
+
+                    //yield return new WaitForSeconds(0.1f);
+
+                    _boadrBoxCollider.isTrigger = false;
                 }
             }
         }
@@ -351,6 +344,11 @@ public class Board : MonoBehaviour
     public GameObject[] ReturnBoards()
     {
         return _boards;
+    }
+
+    public void DoBoardTrigger(bool Operater)
+    {
+        _boadrBoxCollider.isTrigger = Operater;
     }
 
     public void AddPhysic()
@@ -552,25 +550,14 @@ public class Board : MonoBehaviour
         _haveChangedBolt = Operator;
     }
 
-    public GameObject ReturnChangedBolt()
-    {
-        return _changedBolt;
-    }
-
     public void LoadChangedBolt(GameObject Bolt)
     {
         _changedBolt = Bolt;
     }
 
-    public bool HaveChangedBolt()
-    {
-        return _haveChangedBolt;
-    }
-
     public void CanUseAnyBolt()
     {
         canUseBolt = true;
-        //_boltGlobalScript.SetClickOnHole(true);
     }
 
     public void SetBoltToRemuveNull()
@@ -606,7 +593,6 @@ public class Board : MonoBehaviour
 
             if (distance < 1.3f)
             {
-
                 if (Vector3.Distance(_boltTransform.position, _boltMovePoint.position) <= 0.2f)
                 {
                     _boltScrewing = false;
@@ -646,17 +632,11 @@ public class Board : MonoBehaviour
         return _boltScrewing;
     }
 
-    public bool ReturnDid()
-    {
-        return _canScrewNextBolt;
-    }
-
     private IEnumerator ScrewNextBolt(float Time)
     {
         yield return new WaitForSeconds(Time);
 
         _boltGlobalScript.SetNextBoltMoveFlag(true);
-        _canScrewNextBolt = true;
         StopCoroutine(ScrewNextBolt(0.1f));
     }
 
