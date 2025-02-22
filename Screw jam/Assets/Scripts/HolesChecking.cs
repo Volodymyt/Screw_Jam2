@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HolesChecking : MonoBehaviour
 {
-    [SerializeField] private Hole[] _holes;
+    private Hole[] _holes;
 
     private GameObject ActiveHole;
 

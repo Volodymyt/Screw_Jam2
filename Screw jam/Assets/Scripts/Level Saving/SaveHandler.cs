@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SaveHandler : MonoBehaviour
 {
-    [SerializeField] private int _levelNumber, _levelIndex;
+    private int _levelNumber, _levelIndex;
 
     private void Awake()
     {

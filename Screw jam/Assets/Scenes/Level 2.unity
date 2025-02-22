@@ -185,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4901502590940239137, guid: 57e018af995067047a2b862d56066926, type: 3}
       propertyPath: _loadLevelRandom
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4901502590940239137, guid: 57e018af995067047a2b862d56066926, type: 3}
       propertyPath: _additionalWinPanel

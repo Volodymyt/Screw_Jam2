@@ -3,15 +3,21 @@ using UnityEngine;
 
 public class BoltTouch : MonoBehaviour
 {
-    [SerializeField] private BoltGlobalScript _boltGlobalScript;
-    [SerializeField] private GameObject _boardObject;
-    [SerializeField] private Board _board;
-    [SerializeField] private BoltMovement _bolt;
     [SerializeField] private Transform _transform;
     [SerializeField] private OpenNextStepInTutorial _openNextStepInTutorial;
     [SerializeField] private bool _isTutorialLevel = false;
+    [SerializeField] private Board _board;
 
+    private GameObject _boardObject;
+    private BoltMovement _bolt;
+    private BoltGlobalScript _boltGlobalScript;
     private bool canClick = true;
+
+    private void Awake()
+    {
+        _boardObject = transform.parent.gameObject;
+        _bolt = gameObject.GetComponent<BoltMovement>();
+    }
 
     private void Start()
     {

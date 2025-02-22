@@ -3,7 +3,10 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    private static readonly string _saveFolder = Application.dataPath + "/Saves";
+    private static readonly string _saveFolder =
+    Application.platform == RuntimePlatform.Android
+        ? Application.persistentDataPath + "/Saves"
+        : Application.dataPath + "/Saves";
 
     public static void Init()
     {

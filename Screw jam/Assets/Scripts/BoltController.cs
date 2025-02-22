@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class BoltController : MonoBehaviour
 {
-    [SerializeField] private Board[] _boards;
     [SerializeField] private Transform _startOfBolt, _endOfBolt;
     [SerializeField] private LayerMask _layerMask;
 
+    [SerializeField] private Board[] _boards;
     private HingeJoint[] _hingeJoints;
     private List<Board> _boardsList = new List<Board>();
 

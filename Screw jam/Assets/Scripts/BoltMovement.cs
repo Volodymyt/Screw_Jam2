@@ -6,21 +6,29 @@ using UnityEngine;
 public class BoltMovement : MonoBehaviour
 {
     [SerializeField] private float _speed, _timeForMove, _screwingSpeed;
-    [SerializeField] private Board _board, _oldBoard;
-    [SerializeField] private BoltController _controller;
-    [SerializeField] private BoltTouch _boltTouch;
-    [SerializeField] private BoxCollider _capsuleCollider;
     [SerializeField] private Transform _transform, _end, _start;
-    [SerializeField] private BoltGlobalScript _boltGloblScript;
-    [SerializeField] private bool _canMove = false, _canScrew = false, _can = false;
+    [SerializeField] private Board _board;
 
+    private BoltController _controller;
+    private BoltTouch _boltTouch;
+    private BoxCollider _capsuleCollider;
+    private Board _oldBoard;
+    private BoltGlobalScript _boltGloblScript;
+    private bool _canMove = false, _canScrew = false, _can = false;
     private HolesChecking _activeHole;
     private BoxCollider _boltCollider;
     private Transform _centerOfRotation, _endOffset;
-    [SerializeField] private GameObject _meinCamera, _cube, _hole;
+    private GameObject _meinCamera, _cube, _hole;
     private float updateInterval = 0.01f;
     private float timeElapsed = 0f;
     private float lerpTime = 0f;
+
+    private void Awake()
+    {
+        _capsuleCollider = gameObject.GetComponent<BoxCollider>();
+        _controller = gameObject.GetComponent<BoltController>();
+        _boltTouch = gameObject.GetComponent<BoltTouch>();
+    }
 
     private void Start()
     {
@@ -301,22 +309,22 @@ public class BoltMovement : MonoBehaviour
                         }
                     }
 
-                  /*  Dictionary<Rigidbody, HingeJoint> uniqueJoints = new Dictionary<Rigidbody, HingeJoint>();
-                    List<HingeJoint> duplicateJoints = new List<HingeJoint>();
+                    /*  Dictionary<Rigidbody, HingeJoint> uniqueJoints = new Dictionary<Rigidbody, HingeJoint>();
+                      List<HingeJoint> duplicateJoints = new List<HingeJoint>();
 
-                    foreach (HingeJoint jointet in joints)
-                    {
-                        Rigidbody connectedBody = jointet.connectedBody;
+                      foreach (HingeJoint jointet in joints)
+                      {
+                          Rigidbody connectedBody = jointet.connectedBody;
 
-                        if (uniqueJoints.ContainsKey(connectedBody))
-                        {
-                            duplicateJoints.Add(jointet);
-                        }
-                        else
-                        {
-                            uniqueJoints.Add(connectedBody, jointet);
-                        }
-                    }*/
+                          if (uniqueJoints.ContainsKey(connectedBody))
+                          {
+                              duplicateJoints.Add(jointet);
+                          }
+                          else
+                          {
+                              uniqueJoints.Add(connectedBody, jointet);
+                          }
+                      }*/
                 }
             }
         }
@@ -449,6 +457,7 @@ public class BoltMovement : MonoBehaviour
         else
         {
             _board = _boltTouch.ReturnBoard();
+
             hole = _board.FindClosestHoleToBolt(gameObject);
         }
 

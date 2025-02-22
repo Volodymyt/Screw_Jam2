@@ -5,22 +5,25 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour
 {
-    [SerializeField] private bool _holeInCube = false, _holeInPanel = false, _holeInBoard = false;
-    [SerializeField] private BoltGlobalScript _boltGlobalScript;
     [SerializeField] private Transform _endOffsetForBolt, _startOfHole, _endOfHole;
-    [SerializeField] private Board _board;
-
-    [SerializeField] private bool _useThisHole = false, _canScrewing = false;
-    [SerializeField] private bool _haveBolt = false;
-
-    [SerializeField] private GameObject[] _sameBoards;
-    [SerializeField] private Collider _holeCollider;
-
+    [SerializeField] private float _radius = 0.1f;
     [SerializeField] private OpenNextStepInTutorial _openNextStepInTutorial;
+    [SerializeField] private Board _board;
     [SerializeField] private bool _isTutorialLevel = false;
 
+    private GameObject[] _sameBoards;
+    private BoltGlobalScript _boltGlobalScript;
+    private Collider _holeCollider;
     private List<GameObject> _boardsList = new List<GameObject>();
-    private float _radius = 0.1f;
+
+    [SerializeField] private bool _holeInCube = false, _holeInPanel = false, _holeInBoard = false;
+    private bool _useThisHole = false, _canScrewing = false;
+    private bool _haveBolt = false;
+
+    private void Awake()
+    {
+        _holeCollider = gameObject.GetComponent<Collider>();
+    }
 
     private void Start()
     {

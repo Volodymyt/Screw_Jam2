@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoltGlobalScript : MonoBehaviour
 {
-    [SerializeField] private bool _moving = true, _canMoveNextBolt = true, _canClickOnHole = true, _canChangeBolt = true;
-    [SerializeField] private GameObject _activeBolt, _oldHole;
-    [SerializeField] private Board[] _allBoards;
+    private bool _moving = true, _canMoveNextBolt = true, _canClickOnHole = true, _canChangeBolt = true;
+    private GameObject _activeBolt, _oldHole;
+    private Board[] _allBoards;
 
     private void Start()
     {

@@ -176,6 +176,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 621217054110818678, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _board
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 621217054110818678, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _isTutorialLevel
       value: 1
       objectReference: {fileID: 0}
@@ -228,12 +232,36 @@ PrefabInstance:
       value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _board
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _radius
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: _timeForMove
       value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _boardRigidbody
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _boadrBoxCollider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _bolts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _holes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788488370205061411, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
+      propertyPath: _holes.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1850615619090560470, guid: c71dd9916119a2040adb7b1a52de1c5c, type: 3}
       propertyPath: m_AnchoredPosition.y

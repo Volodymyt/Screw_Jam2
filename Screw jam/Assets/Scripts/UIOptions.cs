@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UIOptions : MonoBehaviour
 {
-    [SerializeField] private int _maxScenes;
     [SerializeField] private GameObject _winPanle, _losePanel, _additionalWinPanel;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private Image[] _imagesWitchNeedToChangeTheColor;
@@ -18,8 +17,9 @@ public class UIOptions : MonoBehaviour
     [SerializeField] private GameObject _thisLevel;
     [SerializeField] private TMP_Text _timer, _startLevelText, _levelName, _winLevelText, _nextLevelText;
     [SerializeField] private bool _loadLevelRandom = false;
-    [SerializeField] private int _boards;
     [SerializeField] private float _time, _fadeDuration;
+
+    private int _boards;
 
     private void Awake()
     {

@@ -5,28 +5,40 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _bolts, _holes, _boards;
-    [SerializeField] private BoxCollider _boadrBoxCollider;
-    [SerializeField] private BoltGlobalScript _boltGlobalScript;
-    [SerializeField] private Rigidbody _boardRigidbody;
     [SerializeField] private float _timeForMove, _moveSpeed;
     [SerializeField] private float _radius;
-    [SerializeField] private bool _isMoving = true, _addBolt = false, _newHole = true;
-    [SerializeField] private Board _board;
-    [SerializeField] private bool _canRemoveBoard = true, _haveChangedBolt = false;
-    [SerializeField] private bool _can = true, _boltScrewing = false;
-    [SerializeField] private GameObject _changedBolt;
 
+    private GameObject[] _bolts, _holes, _boards;
+    private BoxCollider _boadrBoxCollider;
+    private BoltGlobalScript _boltGlobalScript;
+    private Rigidbody _boardRigidbody;
+    private bool _isMoving = true, _addBolt = false, _newHole = true;
+    private Board _board;
+    private bool _canRemoveBoard = true, _haveChangedBolt = false;
+    private bool _can = true, _boltScrewing = false;
+    private GameObject _changedBolt;
     private UIOptions _UIOptions;
     private HingeJoint[] _hingeJoints;
-    [SerializeField] private Transform _boltMovePoint, _boltTransform, _closestTransform;
+    private Transform _boltMovePoint, _boltTransform, _closestTransform;
     private HolesChecking _freeHoles;
     private GameObject _lastBolt, _boltToRemove;
     private int _boltsCount, _boltsCountOnTheStart;
-    private int value = 2;
+    private int value;
     private bool canUseBolt = false, _deadBoard = false;
     private bool _canRemoveHinge = true;
 
+    private void Awake()
+    {
+        _bolts = new GameObject[GetComponentsInChildren<Hole>().Length];
+
+        _boadrBoxCollider = gameObject.GetComponent<BoxCollider>();
+        _boardRigidbody = gameObject.GetComponent<Rigidbody>();
+        _board = gameObject.GetComponent<Board>();
+
+        _holes = GetComponentsInChildren<Hole>().Select(h => h.gameObject).ToArray();
+
+        value = _bolts.Length - 1;
+    }
 
     private void Start()
     {
@@ -53,7 +65,7 @@ public class Board : MonoBehaviour
         }
         else if (canUseBolt == true && _freeHoles.CheckHoles() == null && _isMoving)
         {
-           // Debug.Log(gameObject.name);
+            // Debug.Log(gameObject.name);
             StartCoroutine(FindHole());
         }
     }
@@ -217,11 +229,14 @@ public class Board : MonoBehaviour
 
                 if (_canRemoveHinge == true)
                 {
-                    for (int i = 0; i < _boards.Length; i++)
+                    if (_boards != null)
                     {
-                        if (_boards[i].GetComponent<Board>().ReturnHole() != true)
+                        for (int i = 0; i < _boards.Length; i++)
                         {
-                            _boards[i].GetComponent<Board>().DoThat();
+                            if (_boards[i].GetComponent<Board>().ReturnHole() != true)
+                            {
+                                _boards[i].GetComponent<Board>().DoThat();
+                            }
                         }
                     }
 
