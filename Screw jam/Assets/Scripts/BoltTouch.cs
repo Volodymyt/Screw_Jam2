@@ -22,7 +22,18 @@ public class BoltTouch : MonoBehaviour
     private void Start()
     {
         _boltGlobalScript = FindObjectOfType<BoltGlobalScript>();
+
+        if (_board == null)
+        {
+            InvokeRepeating("LoadBoard", 1, 1);
+        }
     }
+
+    private void LoadBoard()
+    {
+        _board = GameObject.FindAnyObjectByType<Board>();
+    }
+
     public void BoltButtonTouch()
     {
         if (!canClick)
